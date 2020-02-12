@@ -12,32 +12,32 @@ extents = Vector2( 209.832, 31.9614 )
 [node name="Node2D" type="Node2D"]
 
 [node name="Sprite" type="Sprite" parent="."]
-position = Vector2( 83.0443, 257.292 )
-scale = Vector2( 0.623548, 0.468293 )
+position = Vector2( 128, 189.065 )
+scale = Vector2( 0.556522, 0.468293 )
 texture = ExtResource( 1 )
 
 [node name="Obstaculo" type="KinematicBody2D" parent="."]
 position = Vector2( -256, 320 )
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="Obstaculo"]
-position = Vector2( 21.8241, 45.907 )
+position = Vector2( 9.13068, -39.7735 )
 shape = SubResource( 1 )
 
 [node name="Obstaculo2" type="KinematicBody2D" parent="."]
 position = Vector2( 512, 320 )
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="Obstaculo2"]
-position = Vector2( -162.837, 31.6911 )
+position = Vector2( -26.3829, -50.8161 )
 shape = SubResource( 1 )
 
 [node name="Player" parent="." instance=ExtResource( 2 )]
-position = Vector2( 99.5789, 225.263 )
+position = Vector2( 70.9052, 38.7578 )
 
 [node name="Sprite2" type="KinematicBody2D" parent="."]
 position = Vector2( 101.619, 501.961 )
 scale = Vector2( 1.95613, 1.70409 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Sprite2"]
-position = Vector2( 3.48457, -7.99988 )
+position = Vector2( 0.240059, -66.6591 )
 shape = SubResource( 2 )
 one_way_collision = true

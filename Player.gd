@@ -4,10 +4,35 @@ const SPEED = 200
 const GRAVITY = 10
 const JUMP = -200
 const FLOOR =  Vector2(0, -1)
+var arrow = preload("res://Arrow.tscn")
+var can_fire = true
+var rate_of_fire = 0.4
 
 var velocity = Vector2()
 var on_ground = false
 
+func _physics_process(delta):
+	get_input()
+	velocity = move_and_slide(velocity, FLOOR)
+	velocity.y += GRAVITY
+	shoot(delta)
+	
+func shoot(delta):
+	if Input.is_action_pressed("Shoot") and can_fire == true:
+		can_fire = false
+		$TurnAxis.rotation = get_angle_to(get_global_mouse_position())
+		var arrow_inst = arrow.instance()
+		arrow_inst.position = $TurnAxis/CasPoint.get_global_position()
+		arrow_inst.rotation = get_angle_to(get_global_mouse_position())
+		get_parent().add_child(arrow_inst)
+		
+		var rigidbody_vector = (get_global_mouse_position() - self.get_position()).normalized()
+		var mouse_distance = self.get_position().distance_to(get_global_mouse_position())
+		arrow_inst.set_linear_velocity(rigidbody_vector * 200 * mouse_distance * delta)
+		
+		yield(get_tree().create_timer(rate_of_fire), "timeout")
+		can_fire = true
+		
 func try_move(rel_vec):
 	if test_move(transform,rel_vec):
 		return false
@@ -52,8 +77,4 @@ func get_input():
 		
 #	velocity = velocity.normalized()
 
-func _physics_process(delta):
-	get_input()
-	velocity = move_and_slide(velocity, FLOOR)
-	velocity.y += GRAVITY
-	
+
