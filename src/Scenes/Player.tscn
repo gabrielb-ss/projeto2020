@@ -1,44 +1,48 @@
-[gd_scene load_steps=21 format=2]
+[gd_scene load_steps=23 format=2]
 
 [ext_resource path="res://assets/GraveRobber/GraveRobber_run.png" type="Texture" id=1]
 [ext_resource path="res://assets/GraveRobber/GraveRobber_idle.png" type="Texture" id=2]
 [ext_resource path="res://src/Scripts/Player.gd" type="Script" id=3]
 [ext_resource path="res://assets/GraveRobber/GraveRobber_jump.png" type="Texture" id=4]
 [ext_resource path="res://assets/bow_0.png" type="Texture" id=5]
+[ext_resource path="res://assets/light.png" type="Texture" id=6]
+
+[sub_resource type="OccluderPolygon2D" id=20]
+polygon = PoolVector2Array( -10.233, 20.9297, -0.773293, 17.1528, 9.13824, 21.1336, -0.547356, 23.4791 )
 
 [sub_resource type="AtlasTexture" id=1]
 flags = 4
 atlas = ExtResource( 4 )
 region = Rect2( 192, 0, 48, 48 )
 
-[sub_resource type="AtlasTexture" id=2]
-flags = 4
-atlas = ExtResource( 4 )
-region = Rect2( 96, 0, 48, 48 )
-
-[sub_resource type="AtlasTexture" id=3]
-flags = 4
-atlas = ExtResource( 4 )
-region = Rect2( 144, 0, 48, 48 )
-
-[sub_resource type="AtlasTexture" id=4]
+[sub_resource type="AtlasTexture" id=21]
 flags = 4
 atlas = ExtResource( 2 )
 region = Rect2( 0, 0, 48, 48 )
 
-[sub_resource type="AtlasTexture" id=5]
+[sub_resource type="AtlasTexture" id=22]
 flags = 4
 atlas = ExtResource( 2 )
 region = Rect2( 48, 0, 48, 48 )
 
-[sub_resource type="AtlasTexture" id=6]
+[sub_resource type="AtlasTexture" id=23]
 flags = 4
 atlas = ExtResource( 2 )
 region = Rect2( 96, 0, 48, 48 )
 
-[sub_resource type="AtlasTexture" id=7]
+[sub_resource type="AtlasTexture" id=24]
 flags = 4
 atlas = ExtResource( 2 )
+region = Rect2( 144, 0, 48, 48 )
+
+[sub_resource type="AtlasTexture" id=6]
+flags = 4
+atlas = ExtResource( 4 )
+region = Rect2( 96, 0, 48, 48 )
+
+[sub_resource type="AtlasTexture" id=7]
+flags = 4
+atlas = ExtResource( 4 )
 region = Rect2( 144, 0, 48, 48 )
 
 [sub_resource type="AtlasTexture" id=8]
@@ -78,14 +82,14 @@ animations = [ {
 "name": "falling",
 "speed": 5.0
 }, {
-"frames": [ SubResource( 2 ), SubResource( 3 ) ],
-"loop": true,
-"name": "jumping",
-"speed": 5.0
-}, {
-"frames": [ SubResource( 4 ), SubResource( 5 ), SubResource( 6 ), SubResource( 7 ) ],
+"frames": [ SubResource( 21 ), SubResource( 22 ), SubResource( 23 ), SubResource( 24 ) ],
 "loop": true,
 "name": "iddle",
+"speed": 5.0
+}, {
+"frames": [ SubResource( 6 ), SubResource( 7 ) ],
+"loop": true,
+"name": "jumping",
 "speed": 5.0
 }, {
 "frames": [ SubResource( 8 ), SubResource( 9 ), SubResource( 10 ), SubResource( 11 ), SubResource( 12 ), SubResource( 13 ) ],
@@ -100,13 +104,35 @@ height = 8.22633
 
 [node name="Player" type="KinematicBody2D"]
 script = ExtResource( 3 )
+__meta__ = {
+"_edit_horizontal_guides_": [ -461.125 ]
+}
+
+[node name="Light2D" type="Light2D" parent="."]
+position = Vector2( 0.000752926, -0.567734 )
+scale = Vector2( 0.046764, 0.0671469 )
+texture = ExtResource( 6 )
+energy = 0.75
+shadow_enabled = true
+
+[node name="LightOccluder2D" type="LightOccluder2D" parent="Light2D"]
+visible = false
+position = Vector2( 29.0155, 15.1993 )
+scale = Vector2( 21.384, 14.8927 )
+occluder = SubResource( 20 )
 
 [node name="Sprite" type="AnimatedSprite" parent="."]
-position = Vector2( 8, -8 )
+position = Vector2( 0.316071, 0.298649 )
 frames = SubResource( 14 )
-animation = "jumping"
+animation = "iddle"
+frame = 1
+playing = true
+__meta__ = {
+"_edit_lock_": true
+}
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
 shape = SubResource( 15 )
 
 [node name="Camera2D" type="Camera2D" parent="."]
