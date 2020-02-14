@@ -15,7 +15,7 @@ polygon = PoolVector2Array( -209.584, -98.6241, 210.043, -98.5556, 209.916, -34.
 [node name="Node2D" type="Node2D"]
 
 [node name="CanvasModulate" type="CanvasModulate" parent="."]
-color = Color( 0.423529, 0.423529, 0.423529, 1 )
+color = Color( 0.278431, 0.278431, 0.278431, 1 )
 
 [node name="Sprite" type="Sprite" parent="."]
 position = Vector2( 128, 190.532 )
