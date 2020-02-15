@@ -7,8 +7,10 @@
 
 [node name="Arrow" type="RigidBody2D"]
 position = Vector2( 0.131941, 0.0659704 )
+collision_layer = 4
+collision_mask = 7
 gravity_scale = 3.0
-contacts_reported = 1
+contacts_reported = 4
 contact_monitor = true
 sleeping = true
 script = ExtResource( 2 )
@@ -34,3 +36,4 @@ visible = false
 position = Vector2( -43.4555, 44.4324 )
 scale = Vector2( 1.62755, 1.62755 )
 texture = ExtResource( 3 )
+[connection signal="body_entered" from="." to="." method="_on_Arrow_body_entered"]

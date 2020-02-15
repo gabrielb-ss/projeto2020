@@ -1,3 +1,4 @@
+tool
 extends KinematicBody2D
 
 const SPEED = 130
@@ -5,6 +6,7 @@ const GRAVITY = 10
 const JUMP = -200
 const FLOOR =  Vector2(0, -1)
 var arrow = preload("res://src/Scenes/Arrow.tscn")
+var arrow_count = 5
 var can_fire = true
 var rate_of_fire = 0.4
 var drag_dist = 0
@@ -13,10 +15,10 @@ var on_ground = false
 var hold = 100
 var count = false
 var turn = false
-
+	
 func _physics_process(delta):
 	get_input(delta)
-#	$Bow.rotation = get_angle_to(get_global_mouse_position())
+	$Bow.rotation = get_angle_to(get_global_mouse_position())
 	velocity = move_and_slide(velocity, FLOOR)
 	velocity.y += GRAVITY
 
@@ -55,26 +57,30 @@ func get_input(delta):
 		else:
 			$Sprite.play("falling")
 	
-	if Input.is_action_pressed("Raise"):
-		$Bow.set_rotation($Bow.get_rotation()+0.1)
-		
-	if Input.is_action_pressed("Decrease"):
-		$Bow.set_rotation($Bow.get_rotation()-0.1)
+#	if Input.is_action_pressed("Raise"):
+#		$Bow.set_rotation($Bow.get_rotation()+0.1)
+#
+#	if Input.is_action_pressed("Decrease"):
+#		$Bow.set_rotation($Bow.get_rotation()-0.1)
 		
 	if Input.is_action_pressed("Shoot") and can_fire == true:
 		hold += 8
+		if arrow_count > 0:
+			$Bow/CastPoint/Light.show()
 		count = true
 		
 	if not Input.is_action_pressed("Shoot") and count:
 		count = false
 		if hold > 500:
 			hold = 500
-		shoot(delta)
+		if arrow_count > 0:
+			$Bow/CastPoint/Light.hide()
+			shoot(delta)
+			arrow_count -= 1
+			print(arrow_count)
 		hold = 100
 	
-	
 func shoot(delta):
-	print(hold)
 	can_fire = false
 	
 	create_arrow(delta)
