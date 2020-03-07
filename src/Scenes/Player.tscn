@@ -8,8 +8,9 @@
 [ext_resource path="res://assets/light.png" type="Texture" id=6]
 [ext_resource path="res://assets/Staves_3/5.png" type="Texture" id=7]
 
-[sub_resource type="OccluderPolygon2D" id=1]
-polygon = PoolVector2Array( -0.643338, 19.4456, -4.3514, 19.0284, 2.39052, 17.0254, 10.3123, 18.6111, 5.93003, 19.4456, 2.39052, 19.696 )
+[sub_resource type="CapsuleShape2D" id=17]
+radius = 11.7264
+height = 8.78156
 
 [sub_resource type="AtlasTexture" id=2]
 flags = 4
@@ -34,17 +35,17 @@ region = Rect2( 144, 0, 24, 48 )
 [sub_resource type="AtlasTexture" id=6]
 flags = 4
 atlas = ExtResource( 4 )
-region = Rect2( 192, 0, 24, 48 )
+region = Rect2( 96, 0, 24, 48 )
 
 [sub_resource type="AtlasTexture" id=7]
 flags = 4
 atlas = ExtResource( 4 )
-region = Rect2( 96, 0, 24, 48 )
+region = Rect2( 144, 0, 24, 48 )
 
 [sub_resource type="AtlasTexture" id=8]
 flags = 4
 atlas = ExtResource( 4 )
-region = Rect2( 144, 0, 24, 48 )
+region = Rect2( 192, 0, 24, 48 )
 
 [sub_resource type="AtlasTexture" id=9]
 flags = 4
@@ -83,14 +84,14 @@ animations = [ {
 "name": "iddle",
 "speed": 5.0
 }, {
-"frames": [ SubResource( 6 ) ],
-"loop": false,
-"name": "falling",
-"speed": 5.0
-}, {
-"frames": [ SubResource( 7 ), SubResource( 8 ) ],
+"frames": [ SubResource( 6 ), SubResource( 7 ) ],
 "loop": true,
 "name": "jumping",
+"speed": 5.0
+}, {
+"frames": [ SubResource( 8 ) ],
+"loop": false,
+"name": "falling",
 "speed": 5.0
 }, {
 "frames": [ SubResource( 9 ), SubResource( 10 ), SubResource( 11 ), SubResource( 12 ), SubResource( 13 ), SubResource( 14 ) ],
@@ -100,8 +101,8 @@ animations = [ {
 } ]
 
 [sub_resource type="CapsuleShape2D" id=16]
-radius = 5.26128
-height = 18.781
+radius = 6.78458
+height = 28.2576
 
 [node name="Player" type="KinematicBody2D"]
 position = Vector2( 0, 126 )
@@ -112,6 +113,14 @@ __meta__ = {
 "_edit_horizontal_guides_": [ -461.125 ]
 }
 
+[node name="Area2D" type="Area2D" parent="."]
+collision_layer = 2
+collision_mask = 9
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2( 1.84412, 1.53677 )
+shape = SubResource( 17 )
+
 [node name="Light2D" type="Light2D" parent="."]
 position = Vector2( 0.000752926, -0.567734 )
 scale = Vector2( 0.046764, 0.0671469 )
@@ -121,12 +130,6 @@ shadow_enabled = true
 __meta__ = {
 "_edit_lock_": true
 }
-
-[node name="LightOccluder2D" type="LightOccluder2D" parent="."]
-visible = false
-position = Vector2( 1.6898, -12.426 )
-scale = Vector2( 0.98538, 1.9901 )
-occluder = SubResource( 1 )
 
 [node name="Sprite" type="AnimatedSprite" parent="."]
 frames = SubResource( 15 )
@@ -139,9 +142,6 @@ __meta__ = {
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2( 2.79031, 6.65382 )
 shape = SubResource( 16 )
-
-[node name="Stats" type="CanvasLayer" parent="."]
-follow_viewport_enable = true
 
 [node name="Camera2D" type="Camera2D" parent="."]
 current = true
@@ -175,13 +175,16 @@ z_as_relative = false
 position = Vector2( 13, 2 )
 
 [node name="Light" type="Light2D" parent="Bow/CastPoint"]
-position = Vector2( 0.208923, -0.370022 )
+position = Vector2( 1.25977, -0.370005 )
 scale = Vector2( 0.0561653, 0.048012 )
 texture = ExtResource( 6 )
 color = Color( 0.752941, 0.294118, 0.294118, 1 )
 range_z_min = -200
 range_z_max = 200
 shadow_enabled = true
+__meta__ = {
+"_edit_lock_": true
+}
 
 [node name="Sprite" type="Sprite" parent="Bow/CastPoint/Light"]
 position = Vector2( -8.94507, 11.4531 )
@@ -194,3 +197,4 @@ scale = Vector2( 0.314464, 0.366873 )
 texture = ExtResource( 5 )
 vframes = 4
 hframes = 7
+[connection signal="body_entered" from="Area2D" to="." method="_on_Area2D_body_entered"]

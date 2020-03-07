@@ -8,7 +8,6 @@ var arrow = preload("res://src/Scenes/Arrow.tscn")
 var arrow_count = 5
 var can_fire = true
 var rate_of_fire = 0.4
-var drag_dist = 0
 var velocity = Vector2()
 var on_ground = false
 var hold = 100
@@ -80,7 +79,7 @@ func get_input(delta):
 			$Bow/CastPoint/Light.hide()
 			shoot(delta)
 			arrow_count -= 1
-			print(arrow_count)
+#			print(arrow_count)
 		hold = 100
 	
 func shoot(delta):
@@ -106,4 +105,9 @@ func try_move(rel_vec):
 		
 #	velocity = velocity.normalized()
 
-
+func _on_Area2D_body_entered(body):
+	var curr_hp = $Camera2D/Hp.get_value()
+	print(body.get_name(), curr_hp)
+	if body.get_name() == "Enemy":
+		curr_hp -= 30
+		$Camera2D/Hp.set_value(curr_hp)

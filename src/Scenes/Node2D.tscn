@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://assets/floresta1.jpg" type="Texture" id=1]
 [ext_resource path="res://src/Scenes/Player.tscn" type="PackedScene" id=2]
@@ -10,13 +10,9 @@ extents = Vector2( 7.22742, 280.227 )
 [sub_resource type="RectangleShape2D" id=2]
 extents = Vector2( 209.832, 31.9614 )
 
-[sub_resource type="OccluderPolygon2D" id=3]
-polygon = PoolVector2Array( -209.584, -98.6241, 210.043, -98.5556, 209.916, -34.8801, -209.45, -34.8756 )
-
 [node name="Node2D" type="Node2D"]
 
 [node name="CanvasModulate" type="CanvasModulate" parent="."]
-visible = false
 color = Color( 0.278431, 0.278431, 0.278431, 1 )
 
 [node name="Sprite" type="Sprite" parent="."]
@@ -26,34 +22,25 @@ texture = ExtResource( 1 )
 region_enabled = true
 region_rect = Rect2( 0, 0, 1380, 820 )
 
-[node name="Obstaculo" type="KinematicBody2D" parent="."]
-position = Vector2( -256, 320 )
+[node name="Enviroment" type="KinematicBody2D" parent="."]
+position = Vector2( 512, 320 )
+collision_mask = 14
 
-[node name="CollisionShape2D2" type="CollisionShape2D" parent="Obstaculo"]
-position = Vector2( 3.8147e-06, -64 )
+[node name="Wall" type="CollisionShape2D" parent="Enviroment"]
+position = Vector2( -768, -64 )
 shape = SubResource( 1 )
 
-[node name="Obstaculo2" type="KinematicBody2D" parent="."]
-position = Vector2( 512, 320 )
+[node name="Ground" type="CollisionShape2D" parent="Enviroment"]
+position = Vector2( -410.685, 73.0106 )
+scale = Vector2( 1.95613, 1.70409 )
+shape = SubResource( 2 )
 
-[node name="CollisionShape2D2" type="CollisionShape2D" parent="Obstaculo2"]
+[node name="Wall2" type="CollisionShape2D" parent="Enviroment"]
 position = Vector2( 3.8147e-06, -64 )
 shape = SubResource( 1 )
 
 [node name="Player" parent="." instance=ExtResource( 2 )]
-position = Vector2( 70.9045, 312.597 )
-
-[node name="Sprite2" type="KinematicBody2D" parent="."]
-position = Vector2( 101.619, 501.961 )
-scale = Vector2( 1.95613, 1.70409 )
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Sprite2"]
-position = Vector2( 0.240059, -66.6591 )
-shape = SubResource( 2 )
-
-[node name="LightOccluder2D" type="LightOccluder2D" parent="Sprite2/CollisionShape2D"]
-position = Vector2( -0.240059, 69.5932 )
-occluder = SubResource( 3 )
+position = Vector2( -147.418, 218.505 )
 
 [node name="Enemy" parent="." instance=ExtResource( 3 )]
-position = Vector2( 166.674, 314.974 )
+position = Vector2( 165.985, 318.96 )

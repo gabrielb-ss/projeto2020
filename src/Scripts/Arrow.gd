@@ -12,5 +12,5 @@ func _on_Arrow_body_entered(body):
 #		print("recuperou")
 		$"/root/Node2D/Player".arrow_count += 1
 		queue_free()
-	elif body.get_name() == "Arrow":
-		print("Bateu")
+#	elif body.get_name() == "Arrow":
+#		print("Bateu")
