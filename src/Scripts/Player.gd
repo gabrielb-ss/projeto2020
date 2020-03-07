@@ -1,4 +1,3 @@
-tool
 extends KinematicBody2D
 
 const SPEED = 130
@@ -17,10 +16,14 @@ var count = false
 var turn = false
 	
 func _physics_process(delta):
-	get_input(delta)
-	$Bow.rotation = get_angle_to(get_global_mouse_position())
-	velocity = move_and_slide(velocity, FLOOR)
-	velocity.y += GRAVITY
+	if $Camera2D/Hp.get_value() <= 0:
+#		queue_free()
+		self.hide()
+	else:
+		get_input(delta)
+		$Bow.rotation = get_angle_to(get_global_mouse_position())
+		velocity = move_and_slide(velocity, FLOOR)
+		velocity.y += GRAVITY
 
 func get_input(delta):
 	if Input.is_action_pressed("ui_right"):

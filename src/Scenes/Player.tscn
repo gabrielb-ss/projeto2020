@@ -13,37 +13,37 @@ polygon = PoolVector2Array( -0.643338, 19.4456, -4.3514, 19.0284, 2.39052, 17.02
 
 [sub_resource type="AtlasTexture" id=2]
 flags = 4
-atlas = ExtResource( 4 )
-region = Rect2( 96, 0, 24, 48 )
-
-[sub_resource type="AtlasTexture" id=3]
-flags = 4
-atlas = ExtResource( 4 )
-region = Rect2( 144, 0, 24, 48 )
-
-[sub_resource type="AtlasTexture" id=4]
-flags = 4
-atlas = ExtResource( 4 )
-region = Rect2( 192, 0, 24, 48 )
-
-[sub_resource type="AtlasTexture" id=5]
-flags = 4
 atlas = ExtResource( 2 )
 region = Rect2( 0, 0, 27, 48 )
 
-[sub_resource type="AtlasTexture" id=6]
+[sub_resource type="AtlasTexture" id=3]
 flags = 4
 atlas = ExtResource( 2 )
 region = Rect2( 48, 0, 24, 48 )
 
-[sub_resource type="AtlasTexture" id=7]
+[sub_resource type="AtlasTexture" id=4]
 flags = 4
 atlas = ExtResource( 2 )
 region = Rect2( 96, 0, 24, 48 )
 
-[sub_resource type="AtlasTexture" id=8]
+[sub_resource type="AtlasTexture" id=5]
 flags = 4
 atlas = ExtResource( 2 )
+region = Rect2( 144, 0, 24, 48 )
+
+[sub_resource type="AtlasTexture" id=6]
+flags = 4
+atlas = ExtResource( 4 )
+region = Rect2( 192, 0, 24, 48 )
+
+[sub_resource type="AtlasTexture" id=7]
+flags = 4
+atlas = ExtResource( 4 )
+region = Rect2( 96, 0, 24, 48 )
+
+[sub_resource type="AtlasTexture" id=8]
+flags = 4
+atlas = ExtResource( 4 )
 region = Rect2( 144, 0, 24, 48 )
 
 [sub_resource type="AtlasTexture" id=9]
@@ -78,19 +78,19 @@ region = Rect2( 247, 0, 19, 48 )
 
 [sub_resource type="SpriteFrames" id=15]
 animations = [ {
-"frames": [ SubResource( 2 ), SubResource( 3 ) ],
+"frames": [ SubResource( 2 ), SubResource( 3 ), SubResource( 4 ), SubResource( 5 ) ],
 "loop": true,
-"name": "jumping",
+"name": "iddle",
 "speed": 5.0
 }, {
-"frames": [ SubResource( 4 ) ],
+"frames": [ SubResource( 6 ) ],
 "loop": false,
 "name": "falling",
 "speed": 5.0
 }, {
-"frames": [ SubResource( 5 ), SubResource( 6 ), SubResource( 7 ), SubResource( 8 ) ],
+"frames": [ SubResource( 7 ), SubResource( 8 ) ],
 "loop": true,
-"name": "iddle",
+"name": "jumping",
 "speed": 5.0
 }, {
 "frames": [ SubResource( 9 ), SubResource( 10 ), SubResource( 11 ), SubResource( 12 ), SubResource( 13 ), SubResource( 14 ) ],
@@ -104,8 +104,9 @@ radius = 5.26128
 height = 18.781
 
 [node name="Player" type="KinematicBody2D"]
-position = Vector2( 0, 9.18141e+06 )
+position = Vector2( 0, 126 )
 collision_layer = 2
+collision_mask = 9
 script = ExtResource( 3 )
 __meta__ = {
 "_edit_horizontal_guides_": [ -461.125 ]
@@ -139,19 +140,35 @@ __meta__ = {
 position = Vector2( 2.79031, 6.65382 )
 shape = SubResource( 16 )
 
+[node name="Stats" type="CanvasLayer" parent="."]
+follow_viewport_enable = true
+
 [node name="Camera2D" type="Camera2D" parent="."]
-visible = false
 current = true
-zoom = Vector2( 0.7, 0.7 )
+zoom = Vector2( 0.9, 0.9 )
 limit_left = -256
 limit_top = 0
 limit_right = 512
 limit_bottom = 384
 smoothing_enabled = true
 editor_draw_limits = true
+editor_draw_drag_margin = true
+
+[node name="Hp" type="ProgressBar" parent="Camera2D"]
+margin_left = -23.4303
+margin_top = -43.381
+margin_right = 25.5697
+margin_bottom = -21.381
+step = 1.0
+value = 100.0
+rounded = true
+__meta__ = {
+"_edit_use_anchors_": false,
+"_editor_description_": ""
+}
 
 [node name="Bow" type="Node2D" parent="."]
-rotation = -1.57078
+rotation = -1.57081
 z_as_relative = false
 
 [node name="CastPoint" type="Node2D" parent="Bow"]
@@ -167,7 +184,7 @@ range_z_max = 200
 shadow_enabled = true
 
 [node name="Sprite" type="Sprite" parent="Bow/CastPoint/Light"]
-position = Vector2( 38.6395, 18.7948 )
+position = Vector2( -8.94507, 11.4531 )
 scale = Vector2( 0.517299, 0.649 )
 texture = ExtResource( 7 )
 
