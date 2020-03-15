@@ -8,7 +8,7 @@
 [ext_resource path="res://assets/light.png" type="Texture" id=6]
 [ext_resource path="res://assets/Staves_3/5.png" type="Texture" id=7]
 
-[sub_resource type="CapsuleShape2D" id=17]
+[sub_resource type="CapsuleShape2D" id=1]
 radius = 11.7264
 height = 8.78156
 
@@ -35,47 +35,47 @@ region = Rect2( 144, 0, 24, 48 )
 [sub_resource type="AtlasTexture" id=6]
 flags = 4
 atlas = ExtResource( 4 )
-region = Rect2( 96, 0, 24, 48 )
-
-[sub_resource type="AtlasTexture" id=7]
-flags = 4
-atlas = ExtResource( 4 )
-region = Rect2( 144, 0, 24, 48 )
-
-[sub_resource type="AtlasTexture" id=8]
-flags = 4
-atlas = ExtResource( 4 )
 region = Rect2( 192, 0, 24, 48 )
 
-[sub_resource type="AtlasTexture" id=9]
+[sub_resource type="AtlasTexture" id=7]
 flags = 4
 atlas = ExtResource( 1 )
 region = Rect2( 0, 0, 32, 48 )
 
-[sub_resource type="AtlasTexture" id=10]
+[sub_resource type="AtlasTexture" id=8]
 flags = 4
 atlas = ExtResource( 1 )
 region = Rect2( 41, 0, 41, 48 )
 
-[sub_resource type="AtlasTexture" id=11]
+[sub_resource type="AtlasTexture" id=9]
 flags = 4
 atlas = ExtResource( 1 )
 region = Rect2( 96, 0, 32, 48 )
 
-[sub_resource type="AtlasTexture" id=12]
+[sub_resource type="AtlasTexture" id=10]
 flags = 4
 atlas = ExtResource( 1 )
 region = Rect2( 144, 0, 36, 48 )
 
-[sub_resource type="AtlasTexture" id=13]
+[sub_resource type="AtlasTexture" id=11]
 flags = 4
 atlas = ExtResource( 1 )
 region = Rect2( 192, 0, 32, 48 )
 
-[sub_resource type="AtlasTexture" id=14]
+[sub_resource type="AtlasTexture" id=12]
 flags = 4
 atlas = ExtResource( 1 )
 region = Rect2( 247, 0, 19, 48 )
+
+[sub_resource type="AtlasTexture" id=13]
+flags = 4
+atlas = ExtResource( 4 )
+region = Rect2( 96, 0, 24, 48 )
+
+[sub_resource type="AtlasTexture" id=14]
+flags = 4
+atlas = ExtResource( 4 )
+region = Rect2( 144, 0, 24, 48 )
 
 [sub_resource type="SpriteFrames" id=15]
 animations = [ {
@@ -84,20 +84,20 @@ animations = [ {
 "name": "iddle",
 "speed": 5.0
 }, {
-"frames": [ SubResource( 6 ), SubResource( 7 ) ],
-"loop": true,
-"name": "jumping",
-"speed": 5.0
-}, {
-"frames": [ SubResource( 8 ) ],
+"frames": [ SubResource( 6 ) ],
 "loop": false,
 "name": "falling",
 "speed": 5.0
 }, {
-"frames": [ SubResource( 9 ), SubResource( 10 ), SubResource( 11 ), SubResource( 12 ), SubResource( 13 ), SubResource( 14 ) ],
+"frames": [ SubResource( 7 ), SubResource( 8 ), SubResource( 9 ), SubResource( 10 ), SubResource( 11 ), SubResource( 12 ) ],
 "loop": true,
 "name": "running",
 "speed": 7.0
+}, {
+"frames": [ SubResource( 13 ), SubResource( 14 ) ],
+"loop": true,
+"name": "jumping",
+"speed": 5.0
 } ]
 
 [sub_resource type="CapsuleShape2D" id=16]
@@ -118,8 +118,8 @@ collision_layer = 2
 collision_mask = 9
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
-position = Vector2( 1.84412, 1.53677 )
-shape = SubResource( 17 )
+position = Vector2( 1.84412, 5.41919 )
+shape = SubResource( 1 )
 
 [node name="Light2D" type="Light2D" parent="."]
 position = Vector2( 0.000752926, -0.567734 )
@@ -140,7 +140,7 @@ __meta__ = {
 }
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2( 2.79031, 6.65382 )
+position = Vector2( 2.79031, 8.91856 )
 shape = SubResource( 16 )
 
 [node name="Camera2D" type="Camera2D" parent="."]
@@ -148,7 +148,6 @@ current = true
 zoom = Vector2( 0.9, 0.9 )
 limit_left = -256
 limit_top = 0
-limit_right = 512
 limit_bottom = 384
 smoothing_enabled = true
 editor_draw_limits = true
@@ -168,6 +167,7 @@ __meta__ = {
 }
 
 [node name="Bow" type="Node2D" parent="."]
+visible = false
 rotation = -1.57081
 z_as_relative = false
 

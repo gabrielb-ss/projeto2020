@@ -66,6 +66,7 @@ func get_input(delta):
 #		$Bow.set_rotation($Bow.get_rotation()-0.1)
 		
 	if Input.is_action_pressed("Shoot") and can_fire == true:
+		$Bow.show()
 		hold += 8
 		if arrow_count > 0:
 			$Bow/CastPoint/Light.show()
@@ -83,12 +84,14 @@ func get_input(delta):
 		hold = 100
 	
 func shoot(delta):
+	
 	can_fire = false
 	
 	create_arrow(delta)
 		
 	yield(get_tree().create_timer(rate_of_fire), "timeout")
 	can_fire = true
+	$Bow.hide()
 	
 func create_arrow(delta):
 	var arrow_inst = arrow.instance()

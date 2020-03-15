@@ -47,7 +47,8 @@ collision_layer = 8
 collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Vision"]
-position = Vector2( -77.8603, -2.64781 )
+position = Vector2( -67.9574, -2.64781 )
+scale = Vector2( 0.263259, 0.695839 )
 shape = SubResource( 3 )
 
 [node name="Attack" type="CollisionShape2D" parent="."]
