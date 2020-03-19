@@ -1,0 +1,18 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://assets/barrapreta.png" type="Texture" id=1]
+[ext_resource path="res://assets/barra.png" type="Texture" id=2]
+
+[node name="Hp" type="TextureProgress"]
+margin_left = -46.791
+margin_top = -41.764
+margin_right = 421.209
+margin_bottom = 18.236
+rect_scale = Vector2( 0.2, 0.2 )
+value = 100.0
+rounded = true
+texture_under = ExtResource( 1 )
+texture_progress = ExtResource( 2 )
+__meta__ = {
+"_edit_use_anchors_": false
+}

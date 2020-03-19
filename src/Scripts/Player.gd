@@ -13,12 +13,19 @@ var on_ground = false
 var hold = 100
 var count = false
 var turn = false
-	
+var hurt = false
+
 func _physics_process(delta):
 	if $Camera2D/Hp.get_value() <= 0:
 #		queue_free()
 		self.hide()
 	else:
+		if hurt:
+			print(hurt)
+			$Sprite.play("hurt")
+			yield(get_tree().create_timer(0.1), "timeout")
+			hurt = false
+			
 		get_input(delta)
 		$Bow.rotation = get_angle_to(get_global_mouse_position())
 		velocity = move_and_slide(velocity, FLOOR)
@@ -112,5 +119,6 @@ func _on_Area2D_body_entered(body):
 	var curr_hp = $Camera2D/Hp.get_value()
 	print(body.get_name(), curr_hp)
 	if body.get_name() == "Enemy":
-		curr_hp -= 30
+		curr_hp -= 10
+#		$Sprite/Hurt.show()
 		$Camera2D/Hp.set_value(curr_hp)

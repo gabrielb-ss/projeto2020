@@ -16,7 +16,7 @@ extents = Vector2( 209.832, 31.9614 )
 
 [node name="CanvasModulate" type="CanvasModulate" parent="."]
 visible = false
-color = Color( 0.278431, 0.278431, 0.278431, 1 )
+color = Color( 0.376471, 0.376471, 0.376471, 1 )
 
 [node name="Sprite" type="Sprite" parent="."]
 position = Vector2( 128, 190.532 )
@@ -52,7 +52,7 @@ scale = Vector2( 1.95613, 1.70409 )
 shape = SubResource( 2 )
 
 [node name="Ground2" type="CollisionShape2D" parent="Enviroment"]
-position = Vector2( 408.152, 75.2267 )
+position = Vector2( 410.152, 73.2267 )
 scale = Vector2( 1.95613, 1.70409 )
 shape = SubResource( 2 )
 
@@ -66,6 +66,9 @@ position = Vector2( 6.23242, 0.187782 )
 rotation = 1.5838
 scale = Vector2( 0.269198, 26.1148 )
 texture = SubResource( 3 )
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Enviroment"]
+polygon = PoolVector2Array( 407.135, 10.2, 260.175, -158.921, 752.375, 11.3663, 751.208, -255.728, 800.195, 39.3587 )
 
 [node name="Player" parent="." instance=ExtResource( 2 )]
 position = Vector2( -147.418, 218.505 )
