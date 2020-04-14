@@ -1,8 +1,7 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://assets/floresta1.jpg" type="Texture" id=1]
 [ext_resource path="res://src/Scenes/Player.tscn" type="PackedScene" id=2]
-[ext_resource path="res://src/Scenes/Enemy.tscn" type="PackedScene" id=3]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 7.22742, 280.227 )
@@ -72,6 +71,3 @@ polygon = PoolVector2Array( 407.135, 10.2, 260.175, -158.921, 752.375, 11.3663, 
 
 [node name="Player" parent="." instance=ExtResource( 2 )]
 position = Vector2( -147.418, 218.505 )
-
-[node name="Enemy" parent="." instance=ExtResource( 3 )]
-position = Vector2( 165.985, 318.96 )

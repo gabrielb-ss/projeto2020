@@ -1,6 +1,6 @@
 extends KinematicBody2D
 
-const SPEED = 130
+const SPEED_LIMIT = 200
 const GRAVITY = 10
 const JUMP = -200
 const FLOOR =  Vector2(0, -1)
@@ -12,49 +12,70 @@ var velocity = Vector2()
 var on_ground = false
 var hold = 100
 var count = false
-var turn = false
+var last_side = 0
 var hurt = false
+var curr_speed = 0
+var aceleration = 2
 
 func _physics_process(delta):
 	if $Camera2D/Hp.get_value() <= 0:
 #		queue_free()
 		self.hide()
-	else:
-		if hurt:
-			print(hurt)
-			$Sprite.play("hurt")
-			yield(get_tree().create_timer(0.1), "timeout")
-			hurt = false
 			
-		get_input(delta)
-		$Bow.rotation = get_angle_to(get_global_mouse_position())
-		velocity = move_and_slide(velocity, FLOOR)
-		velocity.y += GRAVITY
+	get_input(delta)
+	$Bow.rotation = get_angle_to(get_global_mouse_position())
+	if not on_ground:
+		velocity.x= curr_speed
+	
+	velocity = move_and_slide(velocity, FLOOR)
+	velocity.y += GRAVITY
 
+func aceleration(var side):
+	if side != 0:
+		if curr_speed <= SPEED_LIMIT and curr_speed >= -SPEED_LIMIT:
+			curr_speed += aceleration * side
+		else:
+			curr_speed = SPEED_LIMIT * side
+	else:
+		if curr_speed != 0:
+			curr_speed -= aceleration * last_side 
+		else:
+			curr_speed = 0
+		
+	print(curr_speed)
+	return curr_speed
+			
 func get_input(delta):
-	if Input.is_action_pressed("ui_right"):
+	
+	if Input.is_action_pressed("ui_right") and on_ground:
 		$Sprite.flip_h = false
-		if try_move(Vector2(1,-1)):
-			velocity.x = SPEED
+		if try_move(Vector2(1,-1)) :
+			velocity.x = aceleration(1)
 			$Sprite.play("running")
+			last_side = 1
 		else:
 			$Sprite.play("iddle")
 			
-	elif Input.is_action_pressed("ui_left"):
+	elif Input.is_action_pressed("ui_left") and on_ground:
 		$Sprite.flip_h = true
 		if try_move(Vector2(-1,-1)):
-			velocity.x = -SPEED
+			velocity.x = aceleration(-1)
 			$Sprite.play("running")
+			last_side = -1
 		else:
 			$Sprite.play("iddle")
 	else:
-		velocity.x = 0
-		if on_ground == true:
+#------------IDLE-------------
+		velocity.x = aceleration(0)
+		
+		if on_ground == true and curr_speed == 0:
 			$Sprite.play("iddle")
 	
 	if Input.is_action_pressed("ui_up"):
 		if on_ground == true:
 			velocity.y = JUMP
+			velocity.x += 100
+			
 			on_ground = false
 			
 	if is_on_floor():
