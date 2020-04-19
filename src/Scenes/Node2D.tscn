@@ -1,15 +1,21 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://assets/floresta1.jpg" type="Texture" id=1]
-[ext_resource path="res://src/Scenes/Player.tscn" type="PackedScene" id=2]
+[ext_resource path="res://src/Scenes/Hunter.tscn" type="PackedScene" id=2]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 7.22742, 280.227 )
 
+[sub_resource type="RectangleShape2D" id=4]
+extents = Vector2( 7.22742, 280.227 )
+
 [sub_resource type="RectangleShape2D" id=2]
-extents = Vector2( 209.832, 31.9614 )
+extents = Vector2( 407.76, 31.9614 )
 
 [sub_resource type="GradientTexture" id=3]
+
+[sub_resource type="RectangleShape2D" id=5]
+extents = Vector2( 7.22742, 280.227 )
 
 [node name="Node2D" type="Node2D"]
 
@@ -45,29 +51,39 @@ collision_mask = 14
 position = Vector2( -768, -64 )
 shape = SubResource( 1 )
 
-[node name="Ground" type="CollisionShape2D" parent="Enviroment"]
-position = Vector2( -410.685, 73.0106 )
-scale = Vector2( 1.95613, 1.70409 )
-shape = SubResource( 2 )
+[node name="Wall2" type="CollisionShape2D" parent="Enviroment"]
+position = Vector2( 772.731, -58.9649 )
+shape = SubResource( 4 )
 
-[node name="Ground2" type="CollisionShape2D" parent="Enviroment"]
-position = Vector2( 410.152, 73.2267 )
+[node name="Ground" type="CollisionShape2D" parent="Enviroment"]
+position = Vector2( -15.5217, 72.3404 )
 scale = Vector2( 1.95613, 1.70409 )
 shape = SubResource( 2 )
 
 [node name="Ramp" type="CollisionShape2D" parent="Enviroment"]
-position = Vector2( 3.8147e-06, -64 )
+position = Vector2( -43.5622, -129.36 )
 rotation = 1.22479
 shape = SubResource( 1 )
 
 [node name="Sprite" type="Sprite" parent="Enviroment/Ramp"]
-position = Vector2( 6.23242, 0.187782 )
+position = Vector2( 6.55859, 0.178055 )
 rotation = 1.5838
 scale = Vector2( 0.269198, 26.1148 )
 texture = SubResource( 3 )
 
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Enviroment"]
-polygon = PoolVector2Array( 407.135, 10.2, 260.175, -158.921, 752.375, 11.3663, 751.208, -255.728, 800.195, 39.3587 )
+[node name="Ramp2" type="CollisionShape2D" parent="Enviroment"]
+position = Vector2( 473.69, -138.383 )
+rotation = 1.86679
+shape = SubResource( 5 )
 
-[node name="Player" parent="." instance=ExtResource( 2 )]
-position = Vector2( -147.418, 218.505 )
+[node name="Sprite" type="Sprite" parent="Enviroment/Ramp2"]
+position = Vector2( 6.23242, 0.187782 )
+rotation = 1.5838
+scale = Vector2( 0.269198, 26.1148 )
+texture = SubResource( 3 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Hunter" parent="." instance=ExtResource( 2 )]
+position = Vector2( 72.9469, 314.357 )

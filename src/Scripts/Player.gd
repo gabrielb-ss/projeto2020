@@ -15,7 +15,8 @@ var count = false
 var last_side = 0
 var hurt = false
 var curr_speed = 0
-var aceleration = 2
+var acel = 4
+var breaking = false
 
 func _physics_process(delta):
 	if $Camera2D/Hp.get_value() <= 0:
@@ -24,50 +25,47 @@ func _physics_process(delta):
 			
 	get_input(delta)
 	$Bow.rotation = get_angle_to(get_global_mouse_position())
-	if not on_ground:
-		velocity.x= curr_speed
+	velocity.x= curr_speed
+	print(velocity.x)
 	
 	velocity = move_and_slide(velocity, FLOOR)
 	velocity.y += GRAVITY
 
-func aceleration(var side):
-	if side != 0:
-		if curr_speed <= SPEED_LIMIT and curr_speed >= -SPEED_LIMIT:
-			curr_speed += aceleration * side
+func aceleration(var side, var flag):
+	
+	if flag == 0:
+		if abs(curr_speed) > SPEED_LIMIT:
+			curr_speed = SPEED_LIMIT 
 		else:
-			curr_speed = SPEED_LIMIT * side
+			curr_speed += (acel * side)
 	else:
-		if curr_speed != 0:
-			curr_speed -= aceleration * last_side 
-		else:
-			curr_speed = 0
-		
-	print(curr_speed)
-	return curr_speed
+		if abs(curr_speed) > 0:
+			curr_speed -= (acel * last_side)
 			
+	return curr_speed 
+		
 func get_input(delta):
 	
-	if Input.is_action_pressed("ui_right") and on_ground:
+	if Input.is_action_pressed("ui_right") and on_ground and not breaking:
 		$Sprite.flip_h = false
 		if try_move(Vector2(1,-1)) :
-			velocity.x = aceleration(1)
+			aceleration(1, 0)
 			$Sprite.play("running")
 			last_side = 1
 		else:
 			$Sprite.play("iddle")
 			
-	elif Input.is_action_pressed("ui_left") and on_ground:
+	elif Input.is_action_pressed("ui_left") and on_ground and not breaking:
 		$Sprite.flip_h = true
 		if try_move(Vector2(-1,-1)):
-			velocity.x = aceleration(-1)
+			aceleration(-1, 0)
 			$Sprite.play("running")
 			last_side = -1
 		else:
 			$Sprite.play("iddle")
 	else:
 #------------IDLE-------------
-		velocity.x = aceleration(0)
-		
+		aceleration(0,1)
 		if on_ground == true and curr_speed == 0:
 			$Sprite.play("iddle")
 	
@@ -77,7 +75,7 @@ func get_input(delta):
 			velocity.x += 100
 			
 			on_ground = false
-			
+		
 	if is_on_floor():
 		on_ground = true
 	else:

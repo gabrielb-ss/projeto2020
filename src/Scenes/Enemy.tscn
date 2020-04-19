@@ -20,10 +20,10 @@ animations = [ {
 [sub_resource type="RectangleShape2D" id=2]
 extents = Vector2( 33.1408, 17.806 )
 
-[sub_resource type="RectangleShape2D" id=4]
+[sub_resource type="RectangleShape2D" id=3]
 extents = Vector2( 31.7329, 2.85191 )
 
-[sub_resource type="CapsuleShape2D" id=3]
+[sub_resource type="CapsuleShape2D" id=4]
 radius = 12.2078
 height = 14.9402
 
@@ -51,11 +51,11 @@ collision_mask = 2
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Vision"]
 position = Vector2( -67.9574, -2.64781 )
 scale = Vector2( 0.263259, 0.695839 )
-shape = SubResource( 4 )
+shape = SubResource( 3 )
 
 [node name="Attack" type="CollisionShape2D" parent="."]
 position = Vector2( -27.8239, 2.58827 )
-shape = SubResource( 3 )
+shape = SubResource( 4 )
 
 [node name="Hp" type="TextureProgress" parent="."]
 margin_left = -46.791
