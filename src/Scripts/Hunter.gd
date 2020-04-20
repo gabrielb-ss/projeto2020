@@ -10,19 +10,26 @@ var on_ground = false
 var curr_speed = 0
 var accel = 2
 var last_side = 0
+var attacking = false
+var curr_anim = ""
 
 func _physics_process(delta):
 	
-	get_input(delta)
+	if not attacking:
+		get_input(delta)
+	$Sprite.play(curr_anim)
 	
 	velocity = move_and_slide(velocity, FLOOR)
 	velocity.y += GRAVITY
 
+func atk_off():
+	attacking = false
+	
 func aceleration(var side):
 	if side != 0:
 		if abs(curr_speed) < SPEED_LIMIT:
 			curr_speed += accel * side
-	else: 
+	else:
 #		-------------------BREAKING-----------------
 		if abs(curr_speed) > 25 and on_ground:
 			curr_speed /= 1.07
@@ -33,14 +40,14 @@ func aceleration(var side):
 		elif abs(curr_speed) <= 25 and on_ground:
 			curr_speed = 0
 			
-	if abs(curr_speed) > 200:
-		$Sprite.play("running")
+	if abs(curr_speed) > 150:
+		curr_anim = "running"
 	else:
-		$Sprite.play("walking")	
+		curr_anim = "walking"
 	
 	if abs(curr_speed) > SPEED_LIMIT:
 		curr_speed = SPEED_LIMIT * side
-	print(curr_speed)
+#	print(curr_speed)
 	
 	return curr_speed
 	
@@ -52,35 +59,36 @@ func get_input(delta):
 		$Sprite.flip_h = false
 		if try_move(Vector2(1,-1)):
 			velocity.x = aceleration(1)
-#			$Sprite.play("running")
+#			curr_anim = running")
 			last_side = 1
 		else:
-			$Sprite.play("idle")
+			curr_anim = "idle"
 			
 	elif Input.is_action_pressed("ui_left") and on_ground and last_side != 1:
 		$Sprite.flip_h = true
 		if try_move(Vector2(-1,-1)) :
 			velocity.x = aceleration(-1)
-#			$Sprite.play("running")
+#			curr_anim = "running"
 			last_side = -1
 		else:
-			$Sprite.play("idle")
+			curr_anim = "idle"
+		
 	else:
 #		#------------IDLE-------------
 		try_move(Vector2(-1,-1))
 		if last_side != 0:
-			$Sprite.play("stopping")
+			curr_anim = "stopping"
 
 		velocity.x = aceleration(0)
 		
 		if on_ground and curr_speed == 0:
-			$Sprite.play("idle")
+			curr_anim = "idle"
 			last_side = 0
 	
 	if Input.is_action_pressed("ui_up"):
 		if on_ground:
 			velocity.y = JUMP
-#			velocity.x += 100
+#			velocity.x += 100 * last_side
 			
 			on_ground = false
 			
@@ -89,14 +97,21 @@ func get_input(delta):
 	else:
 		on_ground = false
 		if velocity.y < 0:
-			$Sprite.play("jumping")
+			curr_anim = "jumping"
 		else:
-			$Sprite.play("falling")
-
+			curr_anim = "falling"
+	
+	if Input.is_action_pressed("atk1"):
+		attacking = true
+		curr_anim = "atk1"
+		$Timer.connect("timeout", self, "atk_off")
+		$Timer.set_wait_time(0.9)
+		$Timer.start()
+		
 func try_move(rel_vec):
 	if test_move(transform,rel_vec):
 		curr_speed = 0
 		return false
 	else:
-		 return true
+		return true
 
