@@ -13,6 +13,9 @@ var last_side = 0
 var attacking = false
 var curr_anim = ""
 
+func _ready():
+	$Timer.connect("timeout", self, "atk_off")
+	
 func _physics_process(delta):
 	
 	if not attacking:
@@ -24,7 +27,7 @@ func _physics_process(delta):
 
 func atk_off():
 	attacking = false
-	
+		
 func aceleration(var side):
 	if side != 0:
 		if abs(curr_speed) < SPEED_LIMIT:
@@ -40,7 +43,7 @@ func aceleration(var side):
 		elif abs(curr_speed) <= 25 and on_ground:
 			curr_speed = 0
 			
-	if abs(curr_speed) > 150:
+	if abs(curr_speed) > 180:
 		curr_anim = "running"
 	else:
 		curr_anim = "walking"
@@ -88,8 +91,7 @@ func get_input(delta):
 	if Input.is_action_pressed("ui_up"):
 		if on_ground:
 			velocity.y = JUMP
-#			velocity.x += 100 * last_side
-			
+			velocity.x += curr_speed/2 * last_side
 			on_ground = false
 			
 	if is_on_floor():
@@ -104,8 +106,7 @@ func get_input(delta):
 	if Input.is_action_pressed("atk1"):
 		attacking = true
 		curr_anim = "atk1"
-		$Timer.connect("timeout", self, "atk_off")
-		$Timer.set_wait_time(0.9)
+		$Timer.set_wait_time(0.45)
 		$Timer.start()
 		
 func try_move(rel_vec):
