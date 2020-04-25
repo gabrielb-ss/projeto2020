@@ -1,4 +1,4 @@
-[gd_scene load_steps=34 format=2]
+[gd_scene load_steps=37 format=2]
 
 [ext_resource path="res://assets/GraveRobber/GraveRobber_idle.png" type="Texture" id=1]
 [ext_resource path="res://src/Scripts/Ninja.gd" type="Script" id=2]
@@ -6,6 +6,7 @@
 [ext_resource path="res://assets/GraveRobber/GraveRobber_jump.png" type="Texture" id=4]
 [ext_resource path="res://assets/GraveRobber/GraveRobber_walk.png" type="Texture" id=5]
 [ext_resource path="res://assets/GraveRobber/GraveRobber_attack1.png" type="Texture" id=6]
+[ext_resource path="res://assets/GraveRobber/GraveRobber_push.png" type="Texture" id=7]
 
 [sub_resource type="AtlasTexture" id=1]
 flags = 4
@@ -59,77 +60,82 @@ region = Rect2( 240, 0, 48, 48 )
 
 [sub_resource type="AtlasTexture" id=11]
 flags = 4
-atlas = ExtResource( 4 )
-region = Rect2( 144, 0, 36, 48 )
+atlas = ExtResource( 5 )
+region = Rect2( 0, 0, 48, 48 )
 
 [sub_resource type="AtlasTexture" id=12]
 flags = 4
-atlas = ExtResource( 6 )
-region = Rect2( 0, 0, 48, 48 )
+atlas = ExtResource( 5 )
+region = Rect2( 48, 0, 48, 48 )
 
 [sub_resource type="AtlasTexture" id=13]
 flags = 4
-atlas = ExtResource( 6 )
-region = Rect2( 48, 0, 48, 48 )
+atlas = ExtResource( 5 )
+region = Rect2( 96, 0, 48, 48 )
 
 [sub_resource type="AtlasTexture" id=14]
 flags = 4
-atlas = ExtResource( 6 )
-region = Rect2( 96, 0, 48, 48 )
+atlas = ExtResource( 5 )
+region = Rect2( 144, 0, 48, 48 )
 
 [sub_resource type="AtlasTexture" id=15]
 flags = 4
-atlas = ExtResource( 6 )
-region = Rect2( 144, 0, 48, 48 )
+atlas = ExtResource( 5 )
+region = Rect2( 192, 0, 48, 48 )
 
 [sub_resource type="AtlasTexture" id=16]
 flags = 4
-atlas = ExtResource( 6 )
-region = Rect2( 192, 0, 48, 48 )
+atlas = ExtResource( 5 )
+region = Rect2( 240, 0, 48, 48 )
 
 [sub_resource type="AtlasTexture" id=17]
 flags = 4
-atlas = ExtResource( 6 )
+atlas = ExtResource( 4 )
 region = Rect2( 240, 0, 48, 48 )
 
 [sub_resource type="AtlasTexture" id=18]
 flags = 4
 atlas = ExtResource( 4 )
-region = Rect2( 192, 0, 32, 48 )
+region = Rect2( 144, 0, 36, 48 )
 
 [sub_resource type="AtlasTexture" id=19]
 flags = 4
-atlas = ExtResource( 5 )
-region = Rect2( 0, 0, 48, 48 )
+atlas = ExtResource( 4 )
+region = Rect2( 192, 0, 32, 48 )
 
 [sub_resource type="AtlasTexture" id=20]
 flags = 4
-atlas = ExtResource( 5 )
-region = Rect2( 48, 0, 48, 48 )
+atlas = ExtResource( 6 )
+region = Rect2( 0, 0, 48, 48 )
 
 [sub_resource type="AtlasTexture" id=21]
 flags = 4
-atlas = ExtResource( 5 )
-region = Rect2( 96, 0, 48, 48 )
+atlas = ExtResource( 6 )
+region = Rect2( 48, 0, 48, 48 )
 
 [sub_resource type="AtlasTexture" id=22]
 flags = 4
-atlas = ExtResource( 5 )
-region = Rect2( 144, 0, 48, 48 )
+atlas = ExtResource( 6 )
+region = Rect2( 96, 0, 48, 48 )
 
 [sub_resource type="AtlasTexture" id=23]
 flags = 4
-atlas = ExtResource( 5 )
-region = Rect2( 192, 0, 48, 48 )
+atlas = ExtResource( 6 )
+region = Rect2( 144, 0, 48, 48 )
 
 [sub_resource type="AtlasTexture" id=24]
 flags = 4
-atlas = ExtResource( 5 )
-region = Rect2( 240, 0, 48, 48 )
+atlas = ExtResource( 6 )
+region = Rect2( 192, 0, 48, 48 )
 
 [sub_resource type="AtlasTexture" id=25]
 flags = 4
-atlas = ExtResource( 4 )
+atlas = ExtResource( 6 )
+region = Rect2( 240, 0, 48, 48 )
+
+[sub_resource type="AtlasTexture" id=29]
+flags = 4
+atlas = ExtResource( 7 )
 region = Rect2( 240, 0, 48, 48 )
 
 [sub_resource type="SpriteFrames" id=26]
@@ -144,47 +150,62 @@ animations = [ {
 "name": "running",
 "speed": 5.0
 }, {
-"frames": [ SubResource( 11 ) ],
-"loop": true,
-"name": "jumping",
-"speed": 5.0
-}, {
-"frames": [ SubResource( 12 ), SubResource( 13 ), SubResource( 14 ), SubResource( 15 ), SubResource( 16 ), SubResource( 17 ) ],
-"loop": true,
-"name": "atk1",
-"speed": 10.0
-}, {
-"frames": [ SubResource( 18 ) ],
-"loop": true,
-"name": "falling",
-"speed": 5.0
-}, {
-"frames": [ SubResource( 19 ), SubResource( 20 ), SubResource( 21 ), SubResource( 22 ), SubResource( 23 ), SubResource( 24 ) ],
+"frames": [ SubResource( 11 ), SubResource( 12 ), SubResource( 13 ), SubResource( 14 ), SubResource( 15 ), SubResource( 16 ) ],
 "loop": true,
 "name": "walking",
 "speed": 5.0
 }, {
-"frames": [ SubResource( 25 ) ],
+"frames": [ SubResource( 17 ) ],
 "loop": true,
 "name": "stopping",
 "speed": 5.0
+}, {
+"frames": [ SubResource( 18 ) ],
+"loop": true,
+"name": "jumping",
+"speed": 5.0
+}, {
+"frames": [ SubResource( 19 ) ],
+"loop": true,
+"name": "falling",
+"speed": 5.0
+}, {
+"frames": [ SubResource( 20 ), SubResource( 21 ), SubResource( 22 ), SubResource( 23 ), SubResource( 24 ), SubResource( 25 ) ],
+"loop": true,
+"name": "atk1",
+"speed": 10.0
+}, {
+"frames": [ SubResource( 29 ) ],
+"loop": true,
+"name": "wall",
+"speed": 5.0
 } ]
+
+[sub_resource type="RectangleShape2D" id=28]
+extents = Vector2( 5.53224, 4.11507 )
 
 [sub_resource type="CapsuleShape2D" id=27]
 radius = 4.81762
 
-[node name="Hunter" type="KinematicBody2D"]
+[node name="Ninja" type="KinematicBody2D"]
 script = ExtResource( 2 )
 
 [node name="Sprite" type="AnimatedSprite" parent="."]
 frames = SubResource( 26 )
-animation = "idle"
+animation = "wall"
 speed_scale = 1.5
 playing = true
 offset = Vector2( -6, 0 )
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2( -8.29034, 7.10643 )
+[node name="Area2D" type="Area2D" parent="."]
+collision_layer = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2( -8.40052, 7.10643 )
+shape = SubResource( 28 )
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="."]
+position = Vector2( -8.40052, 7.10643 )
 shape = SubResource( 27 )
 
 [node name="Camera2D" type="Camera2D" parent="."]
@@ -197,3 +218,5 @@ editor_draw_limits = true
 editor_draw_drag_margin = true
 
 [node name="Timer" type="Timer" parent="."]
+[connection signal="body_entered" from="Area2D" to="." method="_on_Area2D_body_entered"]
+[connection signal="body_exited" from="Area2D" to="." method="_on_Area2D_body_exited"]
