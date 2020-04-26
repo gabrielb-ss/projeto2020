@@ -15,21 +15,20 @@ var attacking = false
 var curr_anim = ""
 var jump_count = 2
 var on_wall = false
+var grab = false
 
 func _ready():
 	$Timer.connect("timeout", self, "atk_off")
 	
 func _physics_process(delta):
 	
-#	if not attacking:
-#		get_input(delta)
 	jump()
 	if on_ground:
 		direction()
 		
 	$Sprite.play(curr_anim)
 	
-	if not on_wall:
+	if not grab:
 		velocity.y += GRAVITY
 	else: 
 		velocity.y += 0.25
@@ -98,9 +97,19 @@ func jump():
 			
 			curr_jump = -200
 	
-	if Input.is_action_pressed("ui_down") and on_wall:
-		curr_speed = 0
-		on_wall = false
+	if Input.is_action_just_pressed("grab") and on_wall: 
+		velocity.y = 0
+		grab = not grab
+		
+		if grab:
+			jump_count = 2
+			if $Sprite.is_flipped_h():
+				 last_side = 1
+			else:
+				last_side = -1
+		else:
+			last_side = 0
+		$Sprite.flip_h = not $Sprite.is_flipped_h()
 		
 	
 func direction():
@@ -136,25 +145,19 @@ func direction():
 
 func try_move(rel_vec):
 	if test_move(transform,rel_vec):
-		curr_speed = 0
+		velocity.x = 0
 		return false
 	else:
 		return true
 
 func _on_Area2D_body_entered(body):
-	if body.name == "Enviroment" and not on_ground:
+	if body.name == "Enviroment":
 		on_wall = true
-		velocity = Vector2(0,0)
-		
-		if $Sprite.is_flipped_h():
-			 last_side = 1
-		else:
-			last_side = -1
-			
-		$Sprite.flip_h = not $Sprite.is_flipped_h()
-		jump_count = 2
+		curr_speed = 0
+		jump_count = 1
 
 func _on_Area2D_body_exited(body):
 	if body.name == "Enviroment":
 		print("saiu")
 		on_wall = false
+		grab = false

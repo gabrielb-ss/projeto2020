@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://assets/floresta1.jpg" type="Texture" id=1]
 [ext_resource path="res://src/Scenes/Ninja.tscn" type="PackedScene" id=2]
@@ -14,8 +14,6 @@ extents = Vector2( 7.22742, 280.227 )
 
 [sub_resource type="RectangleShape2D" id=4]
 extents = Vector2( 7.22742, 280.227 )
-
-[sub_resource type="GradientTexture" id=5]
 
 [node name="Node2D" type="Node2D"]
 
@@ -72,11 +70,5 @@ position = Vector2( -43.5622, -129.36 )
 rotation = 1.22479
 shape = SubResource( 2 )
 
-[node name="Sprite" type="Sprite" parent="Enviroment/Ramp"]
-position = Vector2( 6.55859, 0.178055 )
-rotation = 1.5838
-scale = Vector2( 0.269198, 26.1148 )
-texture = SubResource( 5 )
-
 [node name="Hunter" parent="." instance=ExtResource( 2 )]
-position = Vector2( 1249.47, 305.333 )
+position = Vector2( -106.21, 161.882 )
