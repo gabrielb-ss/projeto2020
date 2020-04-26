@@ -5,7 +5,6 @@ const SPEED_LIMIT = 300
 const GRAVITY = 10
 const JUMP_LIMIT = -400
 
-
 var velocity = Vector2()
 var on_ground = false
 var curr_speed = 0
@@ -16,7 +15,6 @@ var attacking = false
 var curr_anim = ""
 var jump_count = 2
 var on_wall = false
-var atrito = -5
 
 func _ready():
 	$Timer.connect("timeout", self, "atk_off")
@@ -28,13 +26,13 @@ func _physics_process(delta):
 	jump()
 	if on_ground:
 		direction()
-
+		
 	$Sprite.play(curr_anim)
 	
 	if not on_wall:
 		velocity.y += GRAVITY
 	else: 
-		velocity.y += GRAVITY + atrito
+		velocity.y += 0.25
 		
 	velocity = move_and_slide(velocity, FLOOR)
 
@@ -100,6 +98,11 @@ func jump():
 			
 			curr_jump = -200
 	
+	if Input.is_action_pressed("ui_down") and on_wall:
+		curr_speed = 0
+		on_wall = false
+		
+	
 func direction():
 	if Input.is_action_pressed("ui_right") and last_side != -1:
 		$Sprite.flip_h = false
@@ -141,8 +144,7 @@ func try_move(rel_vec):
 func _on_Area2D_body_entered(body):
 	if body.name == "Enviroment" and not on_ground:
 		on_wall = true
-		curr_speed = 0
-		print(velocity.y)
+		velocity = Vector2(0,0)
 		
 		if $Sprite.is_flipped_h():
 			 last_side = 1
@@ -154,4 +156,5 @@ func _on_Area2D_body_entered(body):
 
 func _on_Area2D_body_exited(body):
 	if body.name == "Enviroment":
+		print("saiu")
 		on_wall = false
