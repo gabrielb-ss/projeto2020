@@ -16,6 +16,7 @@ var curr_anim = ""
 var jump_count = 2
 var on_wall = false
 var grab = false
+var last_scale = 0
 
 func _ready():
 	$Timer.connect("timeout", self, "atk_off")
@@ -84,10 +85,11 @@ func jump():
 			curr_anim = "wall"
 			
 	if Input.is_action_pressed("ui_up"):
-		if curr_jump > JUMP_LIMIT and on_ground:
+		if curr_jump > JUMP_LIMIT and (on_ground or on_wall):
 			curr_jump -= 4
 	
 	elif Input.is_action_just_released("ui_up") and jump_count > 0:
+			scale_direction(last_side)
 			jump_count -= 1
 			if on_wall:
 				curr_speed = 150 * last_side
@@ -97,7 +99,7 @@ func jump():
 			
 			curr_jump = -200
 	
-	if Input.is_action_just_pressed("grab") and on_wall: 
+	if Input.is_action_just_pressed("grab") and on_wall and not on_ground: 
 		velocity.y = 0
 		grab = not grab
 		
@@ -109,25 +111,27 @@ func jump():
 				last_side = -1
 		else:
 			last_side = 0
+
 		$Sprite.flip_h = not $Sprite.is_flipped_h()
 		
-	
 func direction():
 	if Input.is_action_pressed("ui_right") and last_side != -1:
-		$Sprite.flip_h = false
+		last_side = 1
+		if last_scale != last_side:
+			scale_direction(last_side)
+		
 		if try_move(Vector2(1,-1)):
 			velocity.x = aceleration(1)
-#			curr_anim = running")
-			last_side = 1
 		else:
 			curr_anim = "idle"
 			
 	elif Input.is_action_pressed("ui_left") and last_side != 1:
-		$Sprite.flip_h = true
+		last_side = -1
+		if last_scale != last_side:
+			scale_direction(last_side)
+#
 		if try_move(Vector2(-1,-1)) :
 			velocity.x = aceleration(-1)
-#			curr_anim = "running"
-			last_side = -1
 		else:
 			curr_anim = "idle"
 		
@@ -161,3 +165,16 @@ func _on_Area2D_body_exited(body):
 		print("saiu")
 		on_wall = false
 		grab = false
+
+func scale_direction(var side):
+	print("SCALE")
+	if side != 0:
+		if side == 1:
+			$Sprite.flip_h = false
+		else:
+			$Sprite.flip_h = true
+			
+		$HitBox.set_scale(Vector2(side,1))
+	
+	last_scale = side
+		
