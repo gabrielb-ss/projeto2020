@@ -61,7 +61,6 @@ func aceleration(var side):
 		curr_speed = SPEED_LIMIT * side
 
 	return curr_speed
-	##################################### INPUT MANAGEMENT ########################
 
 func attack():
 	if Input.is_action_pressed("atk1"):
@@ -84,9 +83,8 @@ func jump():
 		if on_wall:
 			curr_anim = "wall"
 			
-	if Input.is_action_pressed("ui_up"):
-		if curr_jump > JUMP_LIMIT and (on_ground or on_wall):
-			curr_jump -= 4
+	if Input.is_action_pressed("ui_up") and curr_jump > JUMP_LIMIT and (on_ground or on_wall):
+		curr_jump -= 4
 	
 	elif Input.is_action_just_released("ui_up") and jump_count > 0:
 			scale_direction(last_side)
@@ -122,25 +120,16 @@ func direction():
 		
 		if try_move(Vector2(1,-1)):
 			velocity.x = aceleration(1)
-		else:
-			curr_anim = "idle"
 			
 	elif Input.is_action_pressed("ui_left") and last_side != 1:
 		last_side = -1
 		if last_scale != last_side:
 			scale_direction(last_side)
-#
+
 		if try_move(Vector2(-1,-1)) :
 			velocity.x = aceleration(-1)
-		else:
-			curr_anim = "idle"
-		
+			
 	else:
-#		#------------IDLE-------------
-		try_move(Vector2(-1,-1))
-		if last_side != 0:
-			curr_anim = "stopping"
-
 		velocity.x = aceleration(0)
 		
 		if curr_speed == 0:
@@ -150,6 +139,7 @@ func direction():
 func try_move(rel_vec):
 	if test_move(transform,rel_vec):
 		velocity.x = 0
+		curr_anim = "idle"
 		return false
 	else:
 		return true
@@ -162,7 +152,6 @@ func _on_Area2D_body_entered(body):
 
 func _on_Area2D_body_exited(body):
 	if body.name == "Enviroment":
-		print("saiu")
 		on_wall = false
 		grab = false
 
@@ -177,4 +166,3 @@ func scale_direction(var side):
 		$HitBox.set_scale(Vector2(side,1))
 	
 	last_scale = side
-		
