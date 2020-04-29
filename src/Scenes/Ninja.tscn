@@ -91,42 +91,42 @@ region = Rect2( 240, 0, 48, 48 )
 
 [sub_resource type="AtlasTexture" id=17]
 flags = 4
-atlas = ExtResource( 4 )
-region = Rect2( 192, 0, 32, 48 )
+atlas = ExtResource( 7 )
+region = Rect2( 240, 0, 48, 48 )
 
 [sub_resource type="AtlasTexture" id=18]
 flags = 4
-atlas = ExtResource( 5 )
-region = Rect2( 0, 0, 48, 48 )
+atlas = ExtResource( 4 )
+region = Rect2( 240, 0, 48, 48 )
 
 [sub_resource type="AtlasTexture" id=19]
 flags = 4
 atlas = ExtResource( 5 )
-region = Rect2( 48, 0, 48, 48 )
+region = Rect2( 0, 0, 48, 48 )
 
 [sub_resource type="AtlasTexture" id=20]
 flags = 4
 atlas = ExtResource( 5 )
-region = Rect2( 96, 0, 48, 48 )
+region = Rect2( 48, 0, 48, 48 )
 
 [sub_resource type="AtlasTexture" id=21]
 flags = 4
 atlas = ExtResource( 5 )
-region = Rect2( 144, 0, 48, 48 )
+region = Rect2( 96, 0, 48, 48 )
 
 [sub_resource type="AtlasTexture" id=22]
 flags = 4
 atlas = ExtResource( 5 )
-region = Rect2( 192, 0, 48, 48 )
+region = Rect2( 144, 0, 48, 48 )
 
 [sub_resource type="AtlasTexture" id=23]
 flags = 4
 atlas = ExtResource( 5 )
-region = Rect2( 240, 0, 48, 48 )
+region = Rect2( 192, 0, 48, 48 )
 
 [sub_resource type="AtlasTexture" id=24]
 flags = 4
-atlas = ExtResource( 7 )
+atlas = ExtResource( 5 )
 region = Rect2( 240, 0, 48, 48 )
 
 [sub_resource type="AtlasTexture" id=25]
@@ -137,7 +137,7 @@ region = Rect2( 144, 0, 36, 48 )
 [sub_resource type="AtlasTexture" id=26]
 flags = 4
 atlas = ExtResource( 4 )
-region = Rect2( 240, 0, 48, 48 )
+region = Rect2( 192, 0, 32, 48 )
 
 [sub_resource type="SpriteFrames" id=27]
 animations = [ {
@@ -158,18 +158,18 @@ animations = [ {
 }, {
 "frames": [ SubResource( 17 ) ],
 "loop": true,
-"name": "falling",
+"name": "wall",
 "speed": 5.0
 }, {
-"frames": [ SubResource( 18 ), SubResource( 19 ), SubResource( 20 ), SubResource( 21 ), SubResource( 22 ), SubResource( 23 ) ],
+"frames": [ SubResource( 18 ) ],
+"loop": true,
+"name": "stopping",
+"speed": 5.0
+}, {
+"frames": [ SubResource( 19 ), SubResource( 20 ), SubResource( 21 ), SubResource( 22 ), SubResource( 23 ), SubResource( 24 ) ],
 "loop": true,
 "name": "walking",
 "speed": 7.0
-}, {
-"frames": [ SubResource( 24 ) ],
-"loop": true,
-"name": "wall",
-"speed": 5.0
 }, {
 "frames": [ SubResource( 25 ) ],
 "loop": true,
@@ -178,7 +178,7 @@ animations = [ {
 }, {
 "frames": [ SubResource( 26 ) ],
 "loop": true,
-"name": "stopping",
+"name": "falling",
 "speed": 5.0
 } ]
 
@@ -206,7 +206,7 @@ margin_bottom = 69.1358
 [node name="Sprite" type="AnimatedSprite" parent="."]
 frames = SubResource( 27 )
 animation = "walking"
-frame = 1
+frame = 4
 playing = true
 offset = Vector2( -6, 0 )
 
@@ -247,3 +247,4 @@ editor_draw_drag_margin = true
 [connection signal="body_entered" from="Shape/GrabArea" to="." method="_on_Area2D_body_entered"]
 [connection signal="body_exited" from="Shape/GrabArea" to="." method="_on_Area2D_body_exited"]
 [connection signal="body_entered" from="Shape/Hurtbox" to="." method="_on_Hurtbox_body_entered"]
+[connection signal="body_exited" from="Shape/Hurtbox" to="." method="_on_Hurtbox_body_exited"]

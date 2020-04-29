@@ -17,13 +17,16 @@ var jump_count = 2
 var on_wall = false
 var grab = false
 var last_scale = 0
+var hurting = false
+var delta_count = 60
 
 func _ready():
 	$Timer.connect("timeout", self, "atk_off")
 	
 func _physics_process(delta):
-	
-	died()
+	if hurting:
+		damage()
+		
 	jump()
 	if on_ground:
 		direction()
@@ -157,7 +160,6 @@ func _on_Area2D_body_exited(body):
 		grab = false
 
 func scale_direction(var side):
-	print("SCALE")
 	if side != 0:
 		if side == 1:
 			$Sprite.flip_h = false
@@ -169,10 +171,22 @@ func scale_direction(var side):
 	last_scale = side
 	
 func _on_Hurtbox_body_entered(body):
-	print(body.name)
 	if body.name.find("Enemy", 0) != -1:
-		$Stats/Hp.value -= 50
+		$Stats/Hp.value -= 10
+		delta_count = 60
+		hurting = true
+	
+func _on_Hurtbox_body_exited(body):
+	if body.name.find("Enemy", 0) != -1:
+		hurting = false
 
-func died():
-	if $Stats/Hp.value <= 0:
-		queue_free()
+func damage():
+	if delta_count <= 0:
+		$Stats/Hp.value -= 10
+		delta_count = 60
+	else:
+		delta_count -= 1
+		
+#	if $Stats/Hp.value <= 0:
+#		queue_free()
+		

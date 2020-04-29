@@ -11,9 +11,19 @@
 
 [sub_resource type="SpriteFrames" id=1]
 animations = [ {
+"frames": [ ExtResource( 4 ) ],
+"loop": true,
+"name": "idle",
+"speed": 5.0
+}, {
 "frames": [ ExtResource( 5 ), ExtResource( 4 ), ExtResource( 6 ), ExtResource( 1 ), ExtResource( 3 ) ],
 "loop": true,
-"name": "Walk",
+"name": "walk",
+"speed": 5.0
+}, {
+"frames": [  ],
+"loop": true,
+"name": "attack",
 "speed": 5.0
 } ]
 
@@ -33,18 +43,18 @@ script = ExtResource( 2 )
 position = Vector2( -0.452971, 2.22734 )
 scale = Vector2( 0.761211, 0.73409 )
 frames = SubResource( 1 )
-animation = "Walk"
+animation = "idle"
 
 [node name="HurtBox" type="CollisionShape2D" parent="."]
 position = Vector2( 0.799379, 3.32773 )
 shape = SubResource( 2 )
 
-[node name="HitBox" type="Area2D" parent="."]
-position = Vector2( -27.8239, 2.58827 )
+[node name="HitBox" type="Area2D" parent="HurtBox"]
+position = Vector2( -28.6233, -0.73946 )
 collision_layer = 8
 collision_mask = 2
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="HitBox"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtBox/HitBox"]
 position = Vector2( -4.6329, 0.463287 )
 shape = SubResource( 3 )
 
@@ -62,3 +72,4 @@ texture_progress = ExtResource( 8 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
+[connection signal="body_entered" from="HurtBox/HitBox" to="." method="_on_HitBox_body_entered"]
