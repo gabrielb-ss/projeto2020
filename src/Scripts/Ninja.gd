@@ -23,6 +23,7 @@ func _ready():
 	
 func _physics_process(delta):
 	
+	died()
 	jump()
 	if on_ground:
 		direction()
@@ -163,6 +164,15 @@ func scale_direction(var side):
 		else:
 			$Sprite.flip_h = true
 			
-		$HitBox.set_scale(Vector2(side,1))
+		$Shape.set_scale(Vector2(side,1))
 	
 	last_scale = side
+	
+func _on_Hurtbox_body_entered(body):
+	print(body.name)
+	if body.name.find("Enemy", 0) != -1:
+		$Stats/Hp.value -= 50
+
+func died():
+	if $Stats/Hp.value <= 0:
+		queue_free()
