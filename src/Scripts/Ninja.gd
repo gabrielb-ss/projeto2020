@@ -11,7 +11,6 @@ var curr_speed = 0
 var curr_jump = -200
 var accel = 2
 var last_side = 0
-var attacking = false
 var curr_anim = ""
 var jump_count = 2
 var on_wall = false
@@ -19,31 +18,27 @@ var grab = false
 var last_scale = 0
 var hurting = false
 var delta_count = 60
+var dead = false
 
-func _ready():
-	$Timer.connect("timeout", self, "atk_off")
-	
 func _physics_process(delta):
-	if hurting:
-		damage()
-		
-	jump()
-	if on_ground:
-		direction()
-		
-	$Sprite.play(curr_anim)
 	
-	if not grab:
-		velocity.y += GRAVITY
-	else: 
-		velocity.y += 0.25
+	if not dead:
+		jump()
+		if on_ground:
+			direction()
+			
+		if hurting:
+			damage_taken()
+		else:
+			$Sprite.play(curr_anim)
 		
-	velocity = move_and_slide(velocity, FLOOR)
-
-
-func atk_off():
-	attacking = false
+		if not grab:
+			velocity.y += GRAVITY
+		else: 
+			velocity.y += 0.25
 		
+		velocity = move_and_slide(velocity, FLOOR)
+
 func aceleration(var side):
 	if side != 0:
 		if abs(curr_speed) < SPEED_LIMIT:
@@ -66,13 +61,49 @@ func aceleration(var side):
 
 	return curr_speed
 
-func attack():
-	if Input.is_action_pressed("atk1"):
-		attacking = true
-		curr_anim = "atk1"
-		$Timer.set_wait_time(0.45)
-		$Timer.start()
+func scale_direction(var side):
+	if side != 0:
+		if side == 1:
+			$Sprite.flip_h = false
+		else:
+			$Sprite.flip_h = true
+			
+		$Shape.set_scale(Vector2(side,1))
+	
+	last_scale = side
+
+func direction():
+	if Input.is_action_pressed("ui_right") and last_side != -1:
+		last_side = 1
+		if last_scale != last_side:
+			scale_direction(last_side)
 		
+		if try_move(Vector2(1,-1)):
+			velocity.x = aceleration(1)
+			
+	elif Input.is_action_pressed("ui_left") and last_side != 1:
+		last_side = -1
+		if last_scale != last_side:
+			scale_direction(last_side)
+
+		if try_move(Vector2(-1,-1)) :
+			velocity.x = aceleration(-1)
+			
+	else:
+		velocity.x = aceleration(0)
+		
+		if curr_speed == 0:
+			curr_anim = "idle"
+			last_side = 0
+
+func try_move(rel_vec):
+	if test_move(transform,rel_vec):
+		velocity.x = 0
+		curr_anim = "idle"
+		return false
+	else:
+		return true
+
 func jump():
 	if is_on_floor():
 		on_ground = true
@@ -115,61 +146,33 @@ func jump():
 			last_side = 0
 
 		$Sprite.flip_h = not $Sprite.is_flipped_h()
-		
-func direction():
-	if Input.is_action_pressed("ui_right") and last_side != -1:
-		last_side = 1
-		if last_scale != last_side:
-			scale_direction(last_side)
-		
-		if try_move(Vector2(1,-1)):
-			velocity.x = aceleration(1)
-			
-	elif Input.is_action_pressed("ui_left") and last_side != 1:
-		last_side = -1
-		if last_scale != last_side:
-			scale_direction(last_side)
 
-		if try_move(Vector2(-1,-1)) :
-			velocity.x = aceleration(-1)
-			
-	else:
-		velocity.x = aceleration(0)
-		
-		if curr_speed == 0:
-			curr_anim = "idle"
-			last_side = 0
-
-func try_move(rel_vec):
-	if test_move(transform,rel_vec):
-		velocity.x = 0
-		curr_anim = "idle"
-		return false
-	else:
-		return true
-
-func _on_Area2D_body_entered(body):
+func _on_GrabArea_body_entered(body):
 	if body.name == "Enviroment":
 		on_wall = true
 		curr_speed = 0
 		jump_count = 1
 
-func _on_Area2D_body_exited(body):
+func _on_GrabArea_body_exited(body):
 	if body.name == "Enviroment":
 		on_wall = false
 		grab = false
 
-func scale_direction(var side):
-	if side != 0:
-		if side == 1:
-			$Sprite.flip_h = false
-		else:
-			$Sprite.flip_h = true
-			
-		$Shape.set_scale(Vector2(side,1))
-	
-	last_scale = side
-	
+func damage_taken():
+	if delta_count <= 0:
+		$Stats/Hp.value -= 10
+		delta_count = 60
+	else:
+		delta_count -= 1
+		
+	if $Stats/Hp.value > 0:
+		$Sprite.play("hurting")
+	else: 
+		dead = true
+		$Sprite.play("diying")
+		yield(get_tree().create_timer(1.2), "timeout")
+		queue_free()
+
 func _on_Hurtbox_body_entered(body):
 	if body.name.find("Enemy", 0) != -1:
 		$Stats/Hp.value -= 10
@@ -179,14 +182,3 @@ func _on_Hurtbox_body_entered(body):
 func _on_Hurtbox_body_exited(body):
 	if body.name.find("Enemy", 0) != -1:
 		hurting = false
-
-func damage():
-	if delta_count <= 0:
-		$Stats/Hp.value -= 10
-		delta_count = 60
-	else:
-		delta_count -= 1
-		
-#	if $Stats/Hp.value <= 0:
-#		queue_free()
-		

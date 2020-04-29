@@ -1,4 +1,4 @@
-[gd_scene load_steps=39 format=2]
+[gd_scene load_steps=49 format=2]
 
 [ext_resource path="res://assets/GraveRobber/GraveRobber_idle.png" type="Texture" id=1]
 [ext_resource path="res://src/Scripts/Ninja.gd" type="Script" id=2]
@@ -8,6 +8,8 @@
 [ext_resource path="res://assets/GraveRobber/GraveRobber_attack1.png" type="Texture" id=6]
 [ext_resource path="res://assets/GraveRobber/GraveRobber_push.png" type="Texture" id=7]
 [ext_resource path="res://src/Scenes/Hp.tscn" type="PackedScene" id=8]
+[ext_resource path="res://assets/GraveRobber/GraveRobber_death.png" type="Texture" id=9]
+[ext_resource path="res://assets/GraveRobber/GraveRobber_hurt.png" type="Texture" id=10]
 
 [sub_resource type="AtlasTexture" id=1]
 flags = 4
@@ -139,6 +141,46 @@ flags = 4
 atlas = ExtResource( 4 )
 region = Rect2( 192, 0, 32, 48 )
 
+[sub_resource type="AtlasTexture" id=31]
+flags = 4
+atlas = ExtResource( 9 )
+region = Rect2( 48, 0, 48, 48 )
+
+[sub_resource type="AtlasTexture" id=32]
+flags = 4
+atlas = ExtResource( 9 )
+region = Rect2( 96, 0, 48, 48 )
+
+[sub_resource type="AtlasTexture" id=33]
+flags = 4
+atlas = ExtResource( 9 )
+region = Rect2( 144, 0, 48, 48 )
+
+[sub_resource type="AtlasTexture" id=34]
+flags = 4
+atlas = ExtResource( 9 )
+region = Rect2( 192, 0, 48, 48 )
+
+[sub_resource type="AtlasTexture" id=35]
+flags = 4
+atlas = ExtResource( 9 )
+region = Rect2( 240, 0, 48, 48 )
+
+[sub_resource type="AtlasTexture" id=37]
+flags = 4
+atlas = ExtResource( 10 )
+region = Rect2( 48, 0, 48, 48 )
+
+[sub_resource type="AtlasTexture" id=38]
+flags = 4
+atlas = ExtResource( 10 )
+region = Rect2( 96, 0, 48, 48 )
+
+[sub_resource type="AtlasTexture" id=36]
+flags = 4
+atlas = ExtResource( 10 )
+region = Rect2( 0, 0, 48, 48 )
+
 [sub_resource type="SpriteFrames" id=27]
 animations = [ {
 "frames": [ SubResource( 1 ), SubResource( 2 ), SubResource( 3 ), SubResource( 4 ) ],
@@ -180,6 +222,16 @@ animations = [ {
 "loop": true,
 "name": "falling",
 "speed": 5.0
+}, {
+"frames": [ SubResource( 31 ), SubResource( 32 ), SubResource( 33 ), SubResource( 34 ), SubResource( 35 ) ],
+"loop": false,
+"name": "diying",
+"speed": 5.0
+}, {
+"frames": [ SubResource( 37 ), SubResource( 38 ), SubResource( 36 ) ],
+"loop": true,
+"name": "hurting",
+"speed": 3.0
 } ]
 
 [sub_resource type="RectangleShape2D" id=28]
@@ -205,7 +257,7 @@ margin_bottom = 69.1358
 
 [node name="Sprite" type="AnimatedSprite" parent="."]
 frames = SubResource( 27 )
-animation = "walking"
+animation = "diying"
 frame = 4
 playing = true
 offset = Vector2( -6, 0 )
@@ -244,7 +296,7 @@ editor_draw_limits = true
 editor_draw_drag_margin = true
 
 [node name="Timer" type="Timer" parent="."]
-[connection signal="body_entered" from="Shape/GrabArea" to="." method="_on_Area2D_body_entered"]
-[connection signal="body_exited" from="Shape/GrabArea" to="." method="_on_Area2D_body_exited"]
+[connection signal="body_entered" from="Shape/GrabArea" to="." method="_on_GrabArea_body_entered"]
+[connection signal="body_exited" from="Shape/GrabArea" to="." method="_on_GrabArea_body_exited"]
 [connection signal="body_entered" from="Shape/Hurtbox" to="." method="_on_Hurtbox_body_entered"]
 [connection signal="body_exited" from="Shape/Hurtbox" to="." method="_on_Hurtbox_body_exited"]

@@ -25,8 +25,7 @@ func _physics_process(delta):
 		
 	velocity.y += GRAVITY
 	velocity = move_and_slide(velocity, FLOOR)
-
-
+	
 func _on_HitBox_body_entered(body):
 	if body.name == "Player":
 		$Sprite.play("attack")
