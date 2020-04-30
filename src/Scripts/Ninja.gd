@@ -14,7 +14,7 @@ var last_side = 0
 var curr_anim = ""
 var jump_count = 2
 var on_wall = false
-var grab = false
+var grabbing = false
 var last_scale = 0
 var hurting = false
 var delta_count = 60
@@ -32,10 +32,10 @@ func _physics_process(delta):
 		else:
 			$Sprite.play(curr_anim)
 		
-		if not grab:
+		if not grabbing:
 			velocity.y += GRAVITY
 		else: 
-			velocity.y += 0.25
+			velocity.y += 0.20
 		
 		velocity = move_and_slide(velocity, FLOOR)
 
@@ -69,8 +69,7 @@ func scale_direction(var side):
 			$Sprite.flip_h = true
 			
 		$Shape.set_scale(Vector2(side,1))
-	
-	last_scale = side
+		last_scale = side
 
 func direction():
 	if Input.is_action_pressed("ui_right") and last_side != -1:
@@ -122,31 +121,38 @@ func jump():
 		curr_jump -= 4
 	
 	elif Input.is_action_just_released("ui_up") and jump_count > 0:
-			scale_direction(last_side)
+#			scale_direction(last_side)
 			jump_count -= 1
 			if on_wall:
-				curr_speed = 150 * last_side
-				velocity.x = curr_speed 
+				wall_jump()
+				
 			velocity.y = curr_jump
 			on_ground = false
 			
 			curr_jump = -200
 	
 	if Input.is_action_just_pressed("grab") and on_wall and not on_ground: 
-		velocity.y = 0
-		grab = not grab
-		
-		if grab:
-			jump_count = 2
-			if $Sprite.is_flipped_h():
-				 last_side = 1
-			else:
-				last_side = -1
-		else:
-			last_side = 0
+		grab()
 
 		$Sprite.flip_h = not $Sprite.is_flipped_h()
+		
+func wall_jump():
+	if grabbing:
+		grab()
+	if Input.is_action_pressed("ui_right") and last_scale == -1 or Input.is_action_pressed("ui_left") and last_scale == 1:
+		last_scale *= -1
+		curr_speed = 150 * last_scale
+		scale_direction(last_scale)
+		last_side = last_scale
+		
+	velocity.x = curr_speed 
+		
+func grab():
+	velocity.y = 0
+	grabbing = not grabbing
 
+	$Sprite.flip_h = not $Sprite.is_flipped_h()
+		
 func _on_GrabArea_body_entered(body):
 	if body.name == "Enviroment":
 		on_wall = true
@@ -156,7 +162,7 @@ func _on_GrabArea_body_entered(body):
 func _on_GrabArea_body_exited(body):
 	if body.name == "Enviroment":
 		on_wall = false
-		grab = false
+		grabbing = false
 
 func damage_taken():
 	if delta_count <= 0:
