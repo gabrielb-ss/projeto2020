@@ -20,6 +20,9 @@ var hurting = false
 var delta_count = 60
 var dead = false
 
+#func _ready():
+#	$Stats/JumpBar.value = 200
+#
 func _physics_process(delta):
 	
 	if not dead:
@@ -117,11 +120,14 @@ func jump():
 		if on_wall:
 			curr_anim = "wall"
 			
-	if Input.is_action_pressed("ui_up") and curr_jump > JUMP_LIMIT and (on_ground or on_wall):
+	if Input.is_action_pressed("ui_up") and curr_jump > JUMP_LIMIT and (on_ground or on_wall) and jump_count > 0:
 		curr_jump -= 4
+		$Stats/JumpBar.value += 4
 	
 	elif Input.is_action_just_released("ui_up") and jump_count > 0:
 #			scale_direction(last_side)
+			print(curr_jump)
+			$Stats/JumpBar.value = 200
 			jump_count -= 1
 			if on_wall:
 				wall_jump()
