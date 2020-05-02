@@ -1,4 +1,4 @@
-[gd_scene load_steps=50 format=2]
+[gd_scene load_steps=51 format=2]
 
 [ext_resource path="res://assets/GraveRobber/GraveRobber_idle.png" type="Texture" id=1]
 [ext_resource path="res://src/Scripts/Ninja.gd" type="Script" id=2]
@@ -11,6 +11,7 @@
 [ext_resource path="res://assets/GraveRobber/GraveRobber_death.png" type="Texture" id=9]
 [ext_resource path="res://assets/GraveRobber/GraveRobber_hurt.png" type="Texture" id=10]
 [ext_resource path="res://src/Scenes/JumpBar.tscn" type="PackedScene" id=11]
+[ext_resource path="res://assets/spot.png" type="Texture" id=12]
 
 [sub_resource type="AtlasTexture" id=1]
 flags = 4
@@ -79,108 +80,108 @@ region = Rect2( 240, 0, 48, 48 )
 
 [sub_resource type="AtlasTexture" id=14]
 flags = 4
-atlas = ExtResource( 4 )
-region = Rect2( 240, 0, 48, 48 )
+atlas = ExtResource( 5 )
+region = Rect2( 0, 0, 48, 48 )
 
 [sub_resource type="AtlasTexture" id=15]
 flags = 4
-atlas = ExtResource( 4 )
-region = Rect2( 144, 0, 36, 48 )
+atlas = ExtResource( 5 )
+region = Rect2( 48, 0, 48, 48 )
 
 [sub_resource type="AtlasTexture" id=16]
 flags = 4
-atlas = ExtResource( 4 )
-region = Rect2( 192, 0, 32, 48 )
+atlas = ExtResource( 5 )
+region = Rect2( 96, 0, 48, 48 )
 
 [sub_resource type="AtlasTexture" id=17]
+flags = 4
+atlas = ExtResource( 5 )
+region = Rect2( 144, 0, 48, 48 )
+
+[sub_resource type="AtlasTexture" id=18]
+flags = 4
+atlas = ExtResource( 5 )
+region = Rect2( 192, 0, 48, 48 )
+
+[sub_resource type="AtlasTexture" id=19]
+flags = 4
+atlas = ExtResource( 5 )
+region = Rect2( 240, 0, 48, 48 )
+
+[sub_resource type="AtlasTexture" id=20]
+flags = 4
+atlas = ExtResource( 6 )
+region = Rect2( 0, 0, 48, 48 )
+
+[sub_resource type="AtlasTexture" id=21]
+flags = 4
+atlas = ExtResource( 6 )
+region = Rect2( 48, 0, 48, 48 )
+
+[sub_resource type="AtlasTexture" id=22]
+flags = 4
+atlas = ExtResource( 6 )
+region = Rect2( 96, 0, 48, 48 )
+
+[sub_resource type="AtlasTexture" id=23]
+flags = 4
+atlas = ExtResource( 6 )
+region = Rect2( 144, 0, 48, 48 )
+
+[sub_resource type="AtlasTexture" id=24]
+flags = 4
+atlas = ExtResource( 6 )
+region = Rect2( 192, 0, 48, 48 )
+
+[sub_resource type="AtlasTexture" id=25]
+flags = 4
+atlas = ExtResource( 6 )
+region = Rect2( 240, 0, 48, 48 )
+
+[sub_resource type="AtlasTexture" id=26]
 flags = 4
 atlas = ExtResource( 7 )
 region = Rect2( 240, 0, 48, 48 )
 
-[sub_resource type="AtlasTexture" id=18]
-flags = 4
-atlas = ExtResource( 9 )
-region = Rect2( 48, 0, 48, 48 )
-
-[sub_resource type="AtlasTexture" id=19]
-flags = 4
-atlas = ExtResource( 9 )
-region = Rect2( 96, 0, 48, 48 )
-
-[sub_resource type="AtlasTexture" id=20]
-flags = 4
-atlas = ExtResource( 9 )
-region = Rect2( 144, 0, 48, 48 )
-
-[sub_resource type="AtlasTexture" id=21]
-flags = 4
-atlas = ExtResource( 9 )
-region = Rect2( 192, 0, 48, 48 )
-
-[sub_resource type="AtlasTexture" id=22]
-flags = 4
-atlas = ExtResource( 9 )
-region = Rect2( 240, 0, 48, 48 )
-
-[sub_resource type="AtlasTexture" id=23]
-flags = 4
-atlas = ExtResource( 5 )
-region = Rect2( 0, 0, 48, 48 )
-
-[sub_resource type="AtlasTexture" id=24]
-flags = 4
-atlas = ExtResource( 5 )
-region = Rect2( 48, 0, 48, 48 )
-
-[sub_resource type="AtlasTexture" id=25]
-flags = 4
-atlas = ExtResource( 5 )
-region = Rect2( 96, 0, 48, 48 )
-
-[sub_resource type="AtlasTexture" id=26]
-flags = 4
-atlas = ExtResource( 5 )
-region = Rect2( 144, 0, 48, 48 )
-
 [sub_resource type="AtlasTexture" id=27]
 flags = 4
-atlas = ExtResource( 5 )
-region = Rect2( 192, 0, 48, 48 )
+atlas = ExtResource( 9 )
+region = Rect2( 48, 0, 48, 48 )
 
 [sub_resource type="AtlasTexture" id=28]
 flags = 4
-atlas = ExtResource( 5 )
-region = Rect2( 240, 0, 48, 48 )
+atlas = ExtResource( 9 )
+region = Rect2( 96, 0, 48, 48 )
 
 [sub_resource type="AtlasTexture" id=29]
 flags = 4
-atlas = ExtResource( 6 )
-region = Rect2( 0, 0, 48, 48 )
+atlas = ExtResource( 9 )
+region = Rect2( 144, 0, 48, 48 )
 
 [sub_resource type="AtlasTexture" id=30]
 flags = 4
-atlas = ExtResource( 6 )
-region = Rect2( 48, 0, 48, 48 )
+atlas = ExtResource( 9 )
+region = Rect2( 192, 0, 48, 48 )
 
 [sub_resource type="AtlasTexture" id=31]
 flags = 4
-atlas = ExtResource( 6 )
-region = Rect2( 96, 0, 48, 48 )
+atlas = ExtResource( 9 )
+region = Rect2( 240, 0, 48, 48 )
 
 [sub_resource type="AtlasTexture" id=32]
 flags = 4
-atlas = ExtResource( 6 )
-region = Rect2( 144, 0, 48, 48 )
+atlas = ExtResource( 4 )
+region = Rect2( 192, 0, 32, 48 )
 
 [sub_resource type="AtlasTexture" id=33]
 flags = 4
-atlas = ExtResource( 6 )
-region = Rect2( 192, 0, 48, 48 )
+atlas = ExtResource( 4 )
+region = Rect2( 240, 0, 48, 48 )
 
 [sub_resource type="AtlasTexture" id=34]
 flags = 4
-atlas = ExtResource( 6 )
-region = Rect2( 240, 0, 48, 48 )
+atlas = ExtResource( 4 )
+region = Rect2( 144, 0, 36, 48 )
 
 [sub_resource type="SpriteFrames" id=35]
 animations = [ {
@@ -199,40 +200,40 @@ animations = [ {
 "name": "running",
 "speed": 10.0
 }, {
-"frames": [ SubResource( 14 ) ],
-"loop": true,
-"name": "stopping",
-"speed": 5.0
-}, {
-"frames": [ SubResource( 15 ) ],
-"loop": true,
-"name": "jumping",
-"speed": 5.0
-}, {
-"frames": [ SubResource( 16 ) ],
-"loop": true,
-"name": "falling",
-"speed": 5.0
-}, {
-"frames": [ SubResource( 17 ) ],
-"loop": true,
-"name": "wall",
-"speed": 5.0
-}, {
-"frames": [ SubResource( 18 ), SubResource( 19 ), SubResource( 20 ), SubResource( 21 ), SubResource( 22 ) ],
-"loop": false,
-"name": "diying",
-"speed": 5.0
-}, {
-"frames": [ SubResource( 23 ), SubResource( 24 ), SubResource( 25 ), SubResource( 26 ), SubResource( 27 ), SubResource( 28 ) ],
+"frames": [ SubResource( 14 ), SubResource( 15 ), SubResource( 16 ), SubResource( 17 ), SubResource( 18 ), SubResource( 19 ) ],
 "loop": true,
 "name": "walking",
 "speed": 7.0
 }, {
-"frames": [ SubResource( 29 ), SubResource( 30 ), SubResource( 31 ), SubResource( 32 ), SubResource( 33 ), SubResource( 34 ) ],
+"frames": [ SubResource( 20 ), SubResource( 21 ), SubResource( 22 ), SubResource( 23 ), SubResource( 24 ), SubResource( 25 ) ],
 "loop": true,
 "name": "atk1",
 "speed": 10.0
+}, {
+"frames": [ SubResource( 26 ) ],
+"loop": true,
+"name": "wall",
+"speed": 5.0
+}, {
+"frames": [ SubResource( 27 ), SubResource( 28 ), SubResource( 29 ), SubResource( 30 ), SubResource( 31 ) ],
+"loop": false,
+"name": "diying",
+"speed": 5.0
+}, {
+"frames": [ SubResource( 32 ) ],
+"loop": true,
+"name": "falling",
+"speed": 5.0
+}, {
+"frames": [ SubResource( 33 ) ],
+"loop": true,
+"name": "stopping",
+"speed": 5.0
+}, {
+"frames": [ SubResource( 34 ) ],
+"loop": true,
+"name": "jumping",
+"speed": 5.0
 } ]
 
 [sub_resource type="RectangleShape2D" id=36]
@@ -262,10 +263,20 @@ margin_top = 29.236
 margin_right = 477.209
 margin_bottom = 89.236
 
+[node name="Orb" type="Sprite" parent="Stats"]
+position = Vector2( 113, 36 )
+scale = Vector2( 0.15625, 0.15625 )
+texture = ExtResource( 12 )
+
+[node name="Orb1" type="Sprite" parent="Stats"]
+position = Vector2( 128, 36 )
+scale = Vector2( 0.15625, 0.15625 )
+texture = ExtResource( 12 )
+
 [node name="Sprite" type="AnimatedSprite" parent="."]
 frames = SubResource( 35 )
-animation = "diying"
-frame = 4
+animation = "idle"
+frame = 2
 playing = true
 offset = Vector2( -6, 0 )
 

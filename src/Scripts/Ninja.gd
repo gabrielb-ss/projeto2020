@@ -23,8 +23,18 @@ var dead = false
 #func _ready():
 #	$Stats/JumpBar.value = 200
 #
-func _physics_process(delta):
+func jump_orbs():
+	if jump_count <= 0:
+		$Stats/Orb.hide()
+		$Stats/Orb1.hide()
+	elif jump_count == 1:
+		$Stats/Orb.show()
+		$Stats/Orb1.hide()
+	elif jump_count >= 2:
+		$Stats/Orb.show()
+		$Stats/Orb1.show()
 	
+func _physics_process(delta):
 	if not dead:
 		jump()
 		if on_ground:
@@ -107,6 +117,7 @@ func try_move(rel_vec):
 		return true
 
 func jump():
+	jump_orbs()
 	if is_on_floor():
 		on_ground = true
 		jump_count = 2
@@ -126,12 +137,11 @@ func jump():
 	
 	elif Input.is_action_just_released("ui_up") and jump_count > 0:
 #			scale_direction(last_side)
-			print(curr_jump)
 			$Stats/JumpBar.value = 200
-			jump_count -= 1
 			if on_wall:
 				wall_jump()
 				
+			jump_count -= 1
 			velocity.y = curr_jump
 			on_ground = false
 			
@@ -139,8 +149,7 @@ func jump():
 	
 	if Input.is_action_just_pressed("grab") and on_wall and not on_ground: 
 		grab()
-
-		$Sprite.flip_h = not $Sprite.is_flipped_h()
+		
 		
 func wall_jump():
 	if grabbing:
@@ -154,15 +163,17 @@ func wall_jump():
 	velocity.x = curr_speed 
 		
 func grab():
+	jump_count = 1
 	velocity.y = 0
 	grabbing = not grabbing
-
+	
 	$Sprite.flip_h = not $Sprite.is_flipped_h()
 		
 func _on_GrabArea_body_entered(body):
 	if body.name == "Enviroment":
 		on_wall = true
 		curr_speed = 0
+#		if jump_count == 0 and not grabbing:
 		jump_count = 1
 
 func _on_GrabArea_body_exited(body):
